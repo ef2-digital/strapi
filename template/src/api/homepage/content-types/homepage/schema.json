@@ -12,6 +12,10 @@
   },
   "pluginOptions": {},
   "attributes": {
+    "title": {
+      "type": "string",
+      "required": true
+    },
     "content": {
       "type": "dynamiczone",
       "components": ["content.image-texts"]
