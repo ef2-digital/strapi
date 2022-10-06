@@ -1,0 +1,42 @@
+{
+  "collectionName": "components_content_image_with_text",
+  "info": {
+    "displayName": "image with text",
+    "icon": "address-card",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "image": {
+      "type": "media",
+      "multiple": false,
+      "required": true,
+      "allowedTypes": ["images"]
+    },
+    "title": {
+      "type": "string",
+      "required": true
+    },
+    "subtitle": {
+      "type": "string",
+      "required": true
+    },
+    "description": {
+      "type": "text",
+      "required": true
+    },
+    "href": {
+      "type": "string",
+      "required": false
+    },
+    "buttonText": {
+      "type": "string",
+      "required": true
+    },
+    "buttonTarget": {
+      "type": "enumeration",
+      "enum": ["self", "blank"],
+      "default": "self"
+    }
+  }
+}

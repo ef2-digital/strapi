@@ -1,0 +1,30 @@
+{
+  "collectionName": "components_input_buttons",
+  "info": {
+    "displayName": "Button",
+    "icon": "border-all",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "text": {
+      "type": "string",
+      "required": true
+    },
+    "href": {
+      "type": "string",
+      "required": true
+    },
+    "type": {
+      "type": "enumeration",
+      "enum": ["default", "outline"],
+      "default": "default",
+      "required": true
+    },
+    "target": {
+      "type": "enumeration",
+      "enum": ["self", "blank"],
+      "default": "self"
+    }
+  }
+}
