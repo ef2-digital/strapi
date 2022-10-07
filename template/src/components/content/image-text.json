@@ -10,7 +10,7 @@
     "image": {
       "type": "media",
       "multiple": false,
-      "required": true,
+      "required": false,
       "allowedTypes": ["images"]
     },
     "title": {
@@ -31,7 +31,7 @@
     },
     "buttonText": {
       "type": "string",
-      "required": true
+      "required": false
     },
     "buttonTarget": {
       "type": "enumeration",
