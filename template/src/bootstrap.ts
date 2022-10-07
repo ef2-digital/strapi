@@ -1,9 +1,13 @@
 import { Strapi } from '@strapi/strapi';
 import { homepage } from '../data/data.json';
+import path from 'path';
+import mime from 'mime-types';
+import fs from 'fs-extra';
 
 // Seeds:
 const importHomepage = async (strapi: Strapi): Promise<void> => {
-  createEntry(strapi, 'homepage', homepage);
+  const content = updateContent(homepage.content);
+  createEntry(strapi, 'homepage', { ...homepage, content });
 };
 
 const importSeedData = async (strapi: Strapi): Promise<void> => {
@@ -14,15 +18,85 @@ const importSeedData = async (strapi: Strapi): Promise<void> => {
   importHomepage(strapi);
 };
 
+interface Content {
+  __component: string | 'content.image-texts' | 'content.image-text';
+  [key: string]: any;
+}
+
 // Helpers:
-const createEntry = async (strapi: Strapi, model: string, entry: object): Promise<void> => {
-  try {
-    await strapi.entityService.create(`api::${model}.${model}`, {
-      data: entry,
-    });
-  } catch (error) {
-    console.error({ model, entry, error });
+const updateContent = async (content: Content[]): Promise<Content[]> => {
+  return await content.reduce(async (a: Promise<Content[]>, c: Content) => {
+    if (c.__component === 'content.image-texts') {
+      const copy = { ...c };
+      copy.images = { ...copy.images }.map(async (image) => ({
+        ...image,
+        image: await uploadFiles(strapi, [image.image]),
+      }));
+
+      return [...(await a), copy];
+    } else {
+      return [...(await a), c];
+    }
+  }, Promise.resolve([]));
+};
+
+const createEntry = (strapi: Strapi, model: string, entry: object): void => {
+  strapi.entityService
+    .create(`api::${model}.${model}`, { data: entry })
+    .catch((error) => console.error({ model, entry, error }));
+};
+
+const getFileSizeInBytes = (filePath: string) => {
+  const stats = fs.statSync(filePath);
+  const fileSizeInBytes = stats['size'];
+  return fileSizeInBytes;
+};
+
+interface FileData {
+  path: string;
+  name: string;
+  size: number;
+  type: string | false;
+}
+
+const getFileData = (name: string): FileData => {
+  const filePath = path.join('data', 'uploads', name);
+
+  // Parse the file metadata
+  const size = getFileSizeInBytes(filePath);
+  const ext = name.split('.').pop()!;
+  const type = mime.lookup(ext);
+
+  return {
+    path: filePath,
+    name,
+    size,
+    type,
+  };
+};
+
+const uploadFiles = async (strapi: Strapi, files: string[]): Promise<void> => {
+  for (const file of files) {
+    const fileData = getFileData(file);
+    const fileNameNoExtension = file.split('.').shift();
+    uploadFile(strapi, fileData, fileNameNoExtension!);
   }
+};
+
+const uploadFile = async (strapi: Strapi, file: FileData, name: string): Promise<void> => {
+  return strapi
+    .plugin('upload')
+    .service('upload')
+    .upload({
+      files: file,
+      data: {
+        fileInfo: {
+          alternativeText: '',
+          caption: name,
+          name,
+        },
+      },
+    });
 };
 
 const setPublicPermissions = async (
