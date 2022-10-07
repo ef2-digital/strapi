@@ -6,5 +6,8 @@
     "type": "git",
     "url": "git+https://github.com/ef2-digital/strapi.git"
   },
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "@strapi/strapi": "^4.4.3"
+  }
 }
