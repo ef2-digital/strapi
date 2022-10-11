@@ -6,7 +6,7 @@ import fs from 'fs-extra';
 
 // Seeds:
 const importHomepage = async (strapi: Strapi): Promise<void> => {
-  const content = updateContent(homepage.content);
+  const content = await updateContent(strapi, homepage.content);
   createEntry(strapi, 'homepage', { ...homepage, content });
 };
 
@@ -24,14 +24,18 @@ interface Content {
 }
 
 // Helpers:
-const updateContent = async (content: Content[]): Promise<Content[]> => {
+const updateContent = async (strapi: Strapi, content: Content[]): Promise<Content[]> => {
   return await content.reduce(async (a: Promise<Content[]>, c: Content) => {
     if (c.__component === 'content.image-texts') {
       const copy = { ...c };
-      copy.images = { ...copy.images }.map(async (image) => ({
-        ...image,
-        image: await uploadFiles(strapi, [image.image]),
-      }));
+      copy.images = await Promise.all(
+        [...copy.images].map(async (image) => ({
+          ...image,
+          image: await uploadFiles(strapi, [image.image]),
+        }))
+      );
+
+      console.log({ cpimage: copy.images });
 
       return [...(await a), copy];
     } else {
@@ -75,15 +79,25 @@ const getFileData = (name: string): FileData => {
   };
 };
 
-const uploadFiles = async (strapi: Strapi, files: string[]): Promise<void> => {
-  for (const file of files) {
-    const fileData = getFileData(file);
-    const fileNameNoExtension = file.split('.').shift();
-    uploadFile(strapi, fileData, fileNameNoExtension!);
-  }
+const uploadFiles = async (strapi: Strapi, files: string[]): Promise<any> => {
+  const uploadedFiles = await Promise.all(
+    files.map(async (fileName) => {
+      const fileData = getFileData(fileName);
+      const fileNameNoExtension = fileName.split('.').shift();
+      const [file] = await uploadFile(strapi, fileData, fileNameNoExtension!);
+
+      console.log({ file });
+
+      return file;
+    })
+  );
+
+  console.log({ uploadedFiles });
+
+  return uploadedFiles.length === 1 ? uploadedFiles[0] : uploadedFiles;
 };
 
-const uploadFile = async (strapi: Strapi, file: FileData, name: string): Promise<void> => {
+const uploadFile = async (strapi: Strapi, file: FileData, name: string): Promise<any> => {
   return strapi
     .plugin('upload')
     .service('upload')

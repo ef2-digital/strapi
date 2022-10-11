@@ -1,4 +1,5 @@
 import bootstrap from './bootstrap';
+
 export default {
   /**
    * An asynchronous register function that runs before
