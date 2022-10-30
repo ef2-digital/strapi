@@ -22,6 +22,7 @@
   "pages": [
     {
       "title": "Wat ons bezighoudt",
+      "slug": "wat-ons-bezighoudt",
       "content": [
         {
           "__component": "content.image-texts",
