@@ -23,8 +23,8 @@ const importSeedData = async (strapi: Strapi): Promise<void> => {
   await setPublicPermissions(strapi, {
     homepage: ['find'],
     page: ['find', 'findOne'],
-    slugify: ['findSlug'],
-    navigation: ['render', 'renderChild'],
+    // slugify: ['findSlug'],
+    // navigation: ['render', 'renderChild'],
   });
 
   importHomepage(strapi);
