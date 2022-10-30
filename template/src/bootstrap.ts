@@ -1,5 +1,6 @@
 import { Strapi } from '@strapi/strapi';
 import { homepage } from '../data/data.json';
+import { pages } from '../data/data.json';
 import path from 'path';
 import mime from 'mime-types';
 import fs from 'fs-extra';
@@ -10,12 +11,22 @@ const importHomepage = async (strapi: Strapi): Promise<void> => {
   createEntry(strapi, 'homepage', { ...homepage, content });
 };
 
+const importPages = async (strapi: Strapi): Promise<void> => {
+  pages.forEach(async (page) => {
+    const content = await updateContent(strapi, page.content);
+    createEntry(strapi, 'page', { ...page, content });
+  });
+};
+
 const importSeedData = async (strapi: Strapi): Promise<void> => {
   await setPublicPermissions(strapi, {
     homepage: ['find', 'findOne'],
+    page: ['find', 'findOne'],
+    slugify: ['findSlug'],
   });
 
   importHomepage(strapi);
+  importPages(strapi);
 };
 
 interface Content {
@@ -86,13 +97,9 @@ const uploadFiles = async (strapi: Strapi, files: string[]): Promise<any> => {
       const fileNameNoExtension = fileName.split('.').shift();
       const [file] = await uploadFile(strapi, fileData, fileNameNoExtension!);
 
-      console.log({ file });
-
       return file;
     })
   );
-
-  console.log({ uploadedFiles });
 
   return uploadedFiles.length === 1 ? uploadedFiles[0] : uploadedFiles;
 };
@@ -115,7 +122,7 @@ const uploadFile = async (strapi: Strapi, file: FileData, name: string): Promise
 
 const setPublicPermissions = async (
   strapi: Strapi,
-  permissions: { [key: string]: [string, string] }
+  permissions: { [key: string]: string[] }
 ): Promise<void> => {
   // Find the ID of the public role
   const publicRole = await strapi

@@ -4,7 +4,9 @@
       "@strapi/plugin-graphql": "^4.4.3",
       "fs-extra": "^10.1.0",
       "mime-types": "^2.1.35",
-      "path": "^0.12.7"
+      "path": "^0.12.7",
+      "strapi-plugin-navigation": "^2.2.2",
+      "strapi-plugin-slugify": "^2.3.1"
     }
   }
 }

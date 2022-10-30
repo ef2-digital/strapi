@@ -1,7 +1,7 @@
 {
-  "collectionName": "components_content_image_text",
+  "collectionName": "components_content_image_texts",
   "info": {
-    "displayName": "imageText",
+    "displayName": "Image text",
     "icon": "address-card",
     "description": ""
   },

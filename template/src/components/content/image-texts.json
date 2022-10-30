@@ -1,7 +1,7 @@
 {
-  "collectionName": "components_content_image_texts",
+  "collectionName": "components_content_image_text_texts",
   "info": {
-    "displayName": "ImageTexts",
+    "displayName": "Image texts",
     "description": "",
     "icon": "id-card"
   },
