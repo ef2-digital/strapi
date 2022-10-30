@@ -14,15 +14,17 @@ const importHomepage = async (strapi: Strapi): Promise<void> => {
 const importPages = async (strapi: Strapi): Promise<void> => {
   pages.forEach(async (page) => {
     const content = await updateContent(strapi, page.content);
+    console.log({ content });
     createEntry(strapi, 'page', { ...page, content });
   });
 };
 
 const importSeedData = async (strapi: Strapi): Promise<void> => {
   await setPublicPermissions(strapi, {
-    homepage: ['find', 'findOne'],
+    homepage: ['find'],
     page: ['find', 'findOne'],
     slugify: ['findSlug'],
+    navigation: ['render', 'renderChild'],
   });
 
   importHomepage(strapi);
