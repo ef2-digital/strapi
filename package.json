@@ -1,7 +1,7 @@
 {
   "name": "@ef2-digital/strapi",
   "description": "Strapi EF2 template",
-  "version": "1.0.22",
+  "version": "1.0.24",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/ef2-digital/strapi.git"
