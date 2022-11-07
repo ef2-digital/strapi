@@ -23,9 +23,16 @@ const importSeedData = async (strapi: Strapi): Promise<void> => {
   await setPublicPermissions(strapi, {
     homepage: ['find'],
     page: ['find', 'findOne'],
-    // slugify: ['findSlug'],
-    // navigation: ['render', 'renderChild'],
   });
+
+  await setPublicPermissions(
+    strapi,
+    {
+      slugify: ['findSlug'],
+      navigation: ['render', 'renderChild'],
+    },
+    'plugin'
+  );
 
   importHomepage(strapi);
   importPages(strapi);
@@ -124,7 +131,8 @@ const uploadFile = async (strapi: Strapi, file: FileData, name: string): Promise
 
 const setPublicPermissions = async (
   strapi: Strapi,
-  permissions: { [key: string]: string[] }
+  permissions: { [key: string]: string[] },
+  type: string = 'api'
 ): Promise<void> => {
   // Find the ID of the public role
   const publicRole = await strapi
@@ -138,7 +146,7 @@ const setPublicPermissions = async (
     const permissionsToCreate = actions.map((action) => {
       return strapi.query('plugin::users-permissions.permission').create({
         data: {
-          action: `api::${controller}.${controller}.${action}`,
+          action: `${type}::${controller}.${controller}.${action}`,
           role: publicRole.id,
         },
       });

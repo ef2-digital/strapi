@@ -1,11 +1,7 @@
 {
-  "name": "@ef2-digital/strapi",
+  "name": "@ef2/strapi",
   "description": "Strapi EF2 template",
-  "version": "1.0.27",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/ef2-digital/strapi.git"
-  },
+  "version": "1.0.33",
   "license": "MIT",
   "devDependencies": {
     "@strapi/strapi": "^4.4.3",
