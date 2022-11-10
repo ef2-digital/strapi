@@ -10,7 +10,6 @@
       "strapi-plugin-config-sync": "^1.0.4"
     },
     "scripts": {
-      "dev": "strapi develop",
       "cex": "config-sync export",
       "cim": "config-sync import"
     }
