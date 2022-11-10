@@ -21,15 +21,15 @@ const importPages = async (strapi: Strapi): Promise<void> => {
 
 const importSeedData = async (strapi: Strapi): Promise<void> => {
   await setPublicPermissions(strapi, {
-    homepage: ['find'],
-    page: ['find', 'findOne'],
+    'homepage.homepage': ['find'],
+    'page.page': ['find', 'findOne'],
   });
 
   await setPublicPermissions(
     strapi,
     {
-      slugify: ['findSlug'],
-      navigation: ['render', 'renderChild'],
+      'slugify.slugController': ['findSlug'],
+      'navigation.client': ['render', 'renderChild'],
     },
     'plugin'
   );
@@ -146,7 +146,7 @@ const setPublicPermissions = async (
     const permissionsToCreate = actions.map((action) => {
       return strapi.query('plugin::users-permissions.permission').create({
         data: {
-          action: `${type}::${controller}.${controller}.${action}`,
+          action: `${type}::${controller}.${action}`,
           role: publicRole.id,
         },
       });
