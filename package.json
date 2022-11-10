@@ -1,7 +1,7 @@
 {
   "name": "@ef2/strapi",
   "description": "Strapi EF2 template",
-  "version": "1.0.37",
+  "version": "1.0.38",
   "license": "MIT",
   "devDependencies": {
     "@strapi/strapi": "^4.4.3",
