@@ -17,13 +17,19 @@
     },
     "type": {
       "type": "enumeration",
-      "enum": ["default", "outline"],
+      "enum": [
+        "default",
+        "secondary"
+      ],
       "default": "default",
       "required": true
     },
     "target": {
       "type": "enumeration",
-      "enum": ["self", "blank"],
+      "enum": [
+        "self",
+        "blank"
+      ],
       "default": "self"
     }
   }

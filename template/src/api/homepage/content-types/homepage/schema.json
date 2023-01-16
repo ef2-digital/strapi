@@ -18,7 +18,12 @@
     },
     "content": {
       "type": "dynamiczone",
-      "components": ["content.image-texts", "content.accordion"]
+      "components": [
+        "content.image-texts",
+        "content.accordion",
+        "content.text",
+        "content.image"
+      ]
     }
   }
 }

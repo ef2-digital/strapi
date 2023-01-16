@@ -7,14 +7,21 @@ import fs from 'fs-extra';
 
 // Seeds:
 const importHomepage = async (strapi: Strapi): Promise<void> => {
+  if (await existSingleType(strapi, 'homepage')) {
+    return;
+  }
+
   const content = await updateContent(strapi, homepage.content);
   createEntry(strapi, 'homepage', { ...homepage, content });
 };
 
 const importPages = async (strapi: Strapi): Promise<void> => {
+  if (await existCollection(strapi, 'page')) {
+    return;
+  }
+
   pages.forEach(async (page) => {
     const content = await updateContent(strapi, page.content);
-    console.log({ content });
     createEntry(strapi, 'page', { ...page, content });
   });
 };
@@ -64,6 +71,16 @@ const updateContent = async (strapi: Strapi, content: Content[]): Promise<Conten
   }, Promise.resolve([]));
 };
 
+const existSingleType = async (strapi: Strapi, model: string): Promise<boolean> => {
+  const singleType = await strapi.entityService.find(`api::${model}.${model}`);
+  return !!singleType;
+};
+
+const existCollection = async (strapi: Strapi, model: string): Promise<boolean> => {
+  const collection = await strapi.entityService.findMany(`api::${model}.${model}`);
+  return Boolean(collection.length > 0);
+};
+
 const createEntry = (strapi: Strapi, model: string, entry: object): void => {
   strapi.entityService
     .create(`api::${model}.${model}`, { data: entry })
@@ -102,6 +119,16 @@ const getFileData = (name: string): FileData => {
 const uploadFiles = async (strapi: Strapi, files: string[]): Promise<any> => {
   const uploadedFiles = await Promise.all(
     files.map(async (fileName) => {
+      const fileWhereName = await strapi.query('plugin::upload.file').findOne({
+        where: {
+          name: fileName,
+        },
+      });
+
+      if (fileWhereName) {
+        return fileWhereName;
+      }
+
       const fileData = getFileData(fileName);
       const fileNameNoExtension = fileName.split('.').shift();
       const [file] = await uploadFile(strapi, fileData, fileNameNoExtension!);

@@ -2,12 +2,17 @@
   "collectionName": "components_content_accordion_items",
   "info": {
     "displayName": "Accordion item",
-    "icon": "chevron-down"
+    "icon": "chevron-down",
+    "description": ""
   },
   "options": {},
   "attributes": {
     "text": {
       "type": "richtext",
+      "required": true
+    },
+    "title": {
+      "type": "string",
       "required": true
     }
   }
