@@ -7,7 +7,7 @@ import fs from 'fs-extra';
 
 // Seeds:
 const importHomepage = async (strapi: Strapi): Promise<void> => {
-  if (await existSingleType(strapi, 'homepage')) {
+  if (await existCollection(strapi, 'homepage')) {
     return;
   }
 
@@ -71,14 +71,9 @@ const updateContent = async (strapi: Strapi, content: Content[]): Promise<Conten
   }, Promise.resolve([]));
 };
 
-const existSingleType = async (strapi: Strapi, model: string): Promise<boolean> => {
-  const singleType = await strapi.entityService.find(`api::${model}.${model}`);
-  return !!singleType;
-};
-
 const existCollection = async (strapi: Strapi, model: string): Promise<boolean> => {
   const collection = await strapi.entityService.findMany(`api::${model}.${model}`);
-  return Boolean(collection.length > 0);
+  return Array.isArray(collection) ? Boolean(collection.length > 0) : Boolean(collection);
 };
 
 const createEntry = (strapi: Strapi, model: string, entry: object): void => {
