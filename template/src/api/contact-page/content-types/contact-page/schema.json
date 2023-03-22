@@ -1,0 +1,26 @@
+{
+    "kind": "singleType",
+    "collectionName": "contact_pages",
+    "info": {
+        "singularName": "contact-page",
+        "pluralName": "contact-pages",
+        "displayName": "Contact page",
+        "description": ""
+    },
+    "options": {
+        "draftAndPublish": false
+    },
+    "pluginOptions": {},
+    "attributes": {
+        "title": {
+            "type": "string",
+            "required": true
+        },
+        "seo": {
+            "type": "component",
+            "repeatable": false,
+            "component": "shared.seo",
+            "required": true
+        }
+    }
+}

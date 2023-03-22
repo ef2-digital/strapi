@@ -1,20 +1,23 @@
 {
-  "package": {
-    "dependencies": {
-      "@strapi/plugin-graphql": "latest",
-      "fs-extra": "^10.1.0",
-      "mime-types": "^2.1.35",
-      "path": "^0.12.7",
-      "strapi-plugin-navigation": "^2.2.2",
-      "strapi-plugin-slugify": "^2.3.1",
-      "strapi-plugin-config-sync": "^1.0.4",
-      "@ckeditor/strapi-plugin-ckeditor": "^0.0.7",
-      "@ef2/strapi-plugin-bold-title-editor": "^1.0.6",
-      "@ef2/content-components-strapi": "^0.0.5"
-    },
-    "scripts": {
-      "cex": "config-sync export",
-      "cim": "config-sync import"
+    "package": {
+        "dependencies": {
+            "@strapi/plugin-graphql": "latest",
+            "@strapi/plugin-seo": "latest",
+            "fs-extra": "^10.1.0",
+            "mime-types": "^2.1.35",
+            "path": "^0.12.7",
+            "strapi-plugin-navigation": "^2.2.2",
+            "strapi-plugin-slugify": "^2.3.1",
+            "strapi-plugin-config-sync": "^1.0.4",
+            "@ckeditor/strapi-plugin-ckeditor": "^0.0.7",
+            "@ef2/strapi-plugin-bold-title-editor": "latest",
+            "@ef2/content-components-strapi": "latest",
+            "strapi-plugin-placeholder": "latest",
+            "strapi-plugin-local-image-sharp": "latest"
+        },
+        "scripts": {
+            "cex": "config-sync export",
+            "cim": "config-sync import"
+        }
     }
-  }
 }
