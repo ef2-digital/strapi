@@ -1,5 +1,5 @@
 {
-    "kind": "singleType",
+    "kind": "collectionType",
     "collectionName": "content_pages",
     "info": {
         "singularName": "content-page",
@@ -8,12 +8,17 @@
         "description": ""
     },
     "options": {
-        "draftAndPublish": false
+        "draftAndPublish": true
     },
     "pluginOptions": {},
     "attributes": {
         "title": {
             "type": "string",
+            "required": true
+        },
+        "slug": {
+            "type": "uid",
+            "targetField": "title",
             "required": true
         },
         "seo": {
