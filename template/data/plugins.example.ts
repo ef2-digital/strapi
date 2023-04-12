@@ -14,7 +14,7 @@ export default {
             depthLimit: 100
         }
     },
-    webform: { enabled: true },
+    webforms: { enabled: true },
     email: {
         enabled: true,
         config: {
