@@ -1,7 +1,5 @@
 export default {
-    seo: {
-        enabled: true
-    },
+    seo: { enabled: true },
     placeholder: {
         enabled: true,
         config: {
@@ -9,17 +7,25 @@ export default {
         }
     },
     content: { enabled: true },
-    slugify: {
-        enabled: true
-        // config: {
-        //     contentTypes: {
-        //         page: {
-        //             field: 'slug',
-        //             references: 'title'
-        //         }
-        //     }
-        // }
-    },
     navigation: { enabled: true },
-    graphql: { enabled: true }
+    graphql: {
+        enabled: true,
+        config: {
+            depthLimit: 100
+        }
+    },
+    webform: { enabled: true },
+    email: {
+        enabled: true,
+        config: {
+            provider: 'sendmail',
+            providerOptions: {},
+            settings: {
+                recipients: [],
+                defaultFrom: 'Strapi <info@ef2.builders>',
+                defaultReplyTo: 'Strapi <info@ef2.builders>',
+                testAddress: 'Strapi <info@ef2.builders>'
+            }
+        }
+    }
 };
