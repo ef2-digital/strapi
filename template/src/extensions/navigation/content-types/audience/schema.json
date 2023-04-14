@@ -1,0 +1,34 @@
+{
+    "kind": "collectionType",
+    "collectionName": "audience",
+    "info": {
+        "singularName": "audience",
+        "pluralName": "audiences",
+        "displayName": "Audience",
+        "name": "audience",
+        "description": ""
+    },
+    "pluginOptions": {
+        "content-manager": {
+            "visible": false
+        },
+        "content-type-builder": {
+            "visible": true
+        }
+    },
+
+    "options": {
+        "increments": true,
+        "comment": "Audience",
+        "draftAndPublish": false
+    },
+    "attributes": {
+        "name": {
+            "type": "string",
+            "required": true
+        },
+        "key": {
+            "type": "uid"
+        }
+    }
+}

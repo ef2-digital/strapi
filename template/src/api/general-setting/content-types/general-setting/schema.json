@@ -1,0 +1,63 @@
+{
+    "kind": "singleType",
+    "collectionName": "general_settings",
+    "info": {
+        "singularName": "general-setting",
+        "pluralName": "general-settings",
+        "displayName": "General settings"
+    },
+    "options": {
+        "draftAndPublish": false
+    },
+    "pluginOptions": {
+        "i18n": {
+            "localized": true
+        }
+    },
+    "attributes": {
+        "companyName": {
+            "pluginOptions": {
+                "i18n": {
+                    "localized": true
+                }
+            },
+            "type": "string"
+        },
+        "emailaddress": {
+            "pluginOptions": {
+                "i18n": {
+                    "localized": true
+                }
+            },
+            "type": "string"
+        },
+        "phoneNumber": {
+            "pluginOptions": {
+                "i18n": {
+                    "localized": true
+                }
+            },
+            "type": "string"
+        },
+        "address": {
+            "pluginOptions": {
+                "i18n": {
+                    "localized": true
+                }
+            },
+
+            "type": "richtext"
+        },
+        "socials": {
+            "displayName": "Social media",
+            "type": "component",
+            "repeatable": true,
+            "pluginOptions": {
+                "i18n": {
+                    "localized": true
+                }
+            },
+            "component": "general.social-media"
+        }
+    }
+}
