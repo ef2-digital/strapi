@@ -8,12 +8,13 @@ export default {
     },
     content: { enabled: true },
     navigation: { enabled: true },
-    graphql: {
-        enabled: true,
-        config: {
-            depthLimit: 100
-        }
+    'slug-localization': {
+        enabled: true
     },
+    graphql: {
+        enabled: true
+    },
+
     webforms: { enabled: true },
     email: {
         enabled: true,

@@ -6,6 +6,7 @@
             "@strapi/plugin-i18n": "4.9.1",
             "@ef2/strapi-plugin-bold-title-editor": "latest",
             "@ef2/content-components-strapi": "0.0.23",
+            "@ef2/strapi-plugin-slug-localization": "^0.0.3",
             "@ef2/webforms-strapi": "latest",
             "fs-extra": "^10.1.0",
             "mime-types": "^2.1.35",

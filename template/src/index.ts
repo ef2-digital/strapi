@@ -1,3 +1,4 @@
+//@ts-nocheck
 export default {
     /**
      * An asynchronous register function that runs before
@@ -5,7 +6,12 @@ export default {
      *
      * This gives you an opportunity to extend code.
      */
-    register(/*{ strapi }*/) {},
+    register({ strapi }) {
+        strapi.config.set('plugin.graphql', {
+            depthLimit: 100,
+            amountLimit: 100
+        });
+    },
 
     /**
      * An asynchronous bootstrap function that runs before
