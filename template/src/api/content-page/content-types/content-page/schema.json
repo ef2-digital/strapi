@@ -21,9 +21,14 @@
             "required": true
         },
         "slug": {
-            "type": "uid",
-            "targetField": "title",
-            "required": true
+            "required": true,
+            "pluginOptions": {
+                "i18n": {
+                    "localized": true
+                }
+            },
+            "type": "customField",
+            "customField": "plugin::slug-localization.slug-localization"
         },
         "seo": {
             "type": "component",

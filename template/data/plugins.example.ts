@@ -14,7 +14,6 @@ export default {
     graphql: {
         enabled: true
     },
-
     webforms: { enabled: true },
     email: {
         enabled: true,

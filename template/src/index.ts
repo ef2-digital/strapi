@@ -8,8 +8,14 @@ export default {
      */
     register({ strapi }) {
         strapi.config.set('plugin.graphql', {
+            endpoint: '/graphql',
+            shadowCRUD: true,
+            playgroundAlways: false,
             depthLimit: 100,
-            amountLimit: 100
+            amountLimit: 100,
+            apolloServer: {
+                tracing: true
+            }
         });
     },
 
