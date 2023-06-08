@@ -9,7 +9,7 @@
         "heading": {
             "type": "component",
             "repeatable": false,
-            "component": "content.heading",
+            "component": "layout.heading",
             "required": true
         },
         "items": {

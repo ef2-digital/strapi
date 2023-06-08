@@ -15,7 +15,6 @@ export default {
             logo: EF2Logo
         },
         locales: ['nl'],
-
         translations: {
             nl: {
                 'app.components.LeftMenu.navbrand.title': 'CMS',
