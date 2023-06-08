@@ -6,11 +6,11 @@
     },
     "options": {},
     "attributes": {
-        "caption": {
+        "embedId": {
             "type": "string",
             "required": true
         },
-        "embedId": {
+        "caption": {
             "type": "string",
             "required": true
         }

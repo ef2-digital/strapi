@@ -15,39 +15,6 @@
         }
     },
     "attributes": {
-        "companyName": {
-            "pluginOptions": {
-                "i18n": {
-                    "localized": true
-                }
-            },
-            "type": "string"
-        },
-        "emailaddress": {
-            "pluginOptions": {
-                "i18n": {
-                    "localized": true
-                }
-            },
-            "type": "string"
-        },
-        "phoneNumber": {
-            "pluginOptions": {
-                "i18n": {
-                    "localized": true
-                }
-            },
-            "type": "string"
-        },
-        "address": {
-            "pluginOptions": {
-                "i18n": {
-                    "localized": true
-                }
-            },
-
-            "type": "richtext"
-        },
         "footer": {
             "type": "component",
             "repeatable": false,

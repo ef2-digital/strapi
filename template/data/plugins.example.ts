@@ -6,7 +6,6 @@ export default {
             size: 10
         }
     },
-    content: { enabled: true },
     navigation: { enabled: true },
     'slug-localization': {
         enabled: true
@@ -14,7 +13,6 @@ export default {
     graphql: {
         enabled: true
     },
-    webforms: { enabled: true },
     email: {
         enabled: true,
         config: {

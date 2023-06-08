@@ -30,6 +30,18 @@
         "place": {
             "type": "string",
             "required": true
+        },
+        "email": {
+            "type": "string",
+            "required": false
+        },
+        "phone": {
+            "type": "string",
+            "required": false
+        },
+        "phoneHref": {
+            "type": "string",
+            "required": false
         }
     }
 }
