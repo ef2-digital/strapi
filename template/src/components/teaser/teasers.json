@@ -1,0 +1,23 @@
+{
+    "collectionName": "components_content_teaser_collections",
+    "info": {
+        "displayName": "Teasers",
+        "description": ""
+    },
+    "options": {},
+    "attributes": {
+        "heading": {
+            "type": "component",
+            "repeatable": false,
+            "component": "layout.heading",
+            "required": false
+        },
+        "teasers": {
+            "type": "component",
+            "repeatable": true,
+            "component": "teaser.teaser",
+            "required": true,
+            "min": 1
+        }
+    }
+}

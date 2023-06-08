@@ -1,0 +1,18 @@
+{
+    "collectionName": "components_content_videos",
+    "info": {
+        "displayName": "YouTube video",
+        "description": ""
+    },
+    "options": {},
+    "attributes": {
+        "caption": {
+            "type": "string",
+            "required": true
+        },
+        "embedId": {
+            "type": "string",
+            "required": true
+        }
+    }
+}

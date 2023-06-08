@@ -1,0 +1,36 @@
+{
+    "collectionName": "components_input_buttons",
+    "info": {
+        "displayName": "Button",
+        "description": ""
+    },
+    "options": {},
+    "attributes": {
+        "label": {
+            "type": "string",
+            "required": true
+        },
+        "href": {
+            "type": "string",
+            "required": true
+        },
+        "color": {
+            "type": "enumeration",
+            "enum": ["primary", "secondary"],
+            "default": "primary",
+            "required": true
+        },
+        "variant": {
+            "type": "enumeration",
+            "enum": ["default", "outline", "text"],
+            "default": "default",
+            "required": true
+        },
+        "target": {
+            "type": "enumeration",
+            "enum": ["self", "blank"],
+            "default": "self",
+            "required": true
+        }
+    }
+}

@@ -1,0 +1,23 @@
+{
+    "collectionName": "components_content_accordions",
+    "info": {
+        "displayName": "Accordion",
+        "description": ""
+    },
+    "options": {},
+    "attributes": {
+        "heading": {
+            "type": "component",
+            "repeatable": false,
+            "component": "content.heading",
+            "required": true
+        },
+        "items": {
+            "type": "component",
+            "repeatable": true,
+            "component": "layout.paragraph",
+            "required": true,
+            "min": 1
+        }
+    }
+}

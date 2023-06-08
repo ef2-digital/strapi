@@ -1,0 +1,24 @@
+{
+    "collectionName": "components_input_links",
+    "info": {
+        "displayName": "Link",
+        "description": ""
+    },
+    "options": {},
+    "attributes": {
+        "label": {
+            "type": "string",
+            "required": true
+        },
+        "href": {
+            "type": "string",
+            "required": false
+        },
+        "target": {
+            "type": "enumeration",
+            "enum": ["self", "blank"],
+            "default": "self",
+            "required": false
+        }
+    }
+}

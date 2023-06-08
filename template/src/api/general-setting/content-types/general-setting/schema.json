@@ -23,16 +23,6 @@
             },
             "type": "string"
         },
-        "logo": {
-            "allowedTypes": ["images"],
-            "type": "media",
-            "multiple": false,
-            "pluginOptions": {
-                "i18n": {
-                    "localized": true
-                }
-            }
-        },
         "emailaddress": {
             "pluginOptions": {
                 "i18n": {
@@ -58,16 +48,15 @@
 
             "type": "richtext"
         },
-        "socials": {
-            "displayName": "Social media",
+        "footer": {
             "type": "component",
-            "repeatable": true,
+            "repeatable": false,
             "pluginOptions": {
                 "i18n": {
                     "localized": true
                 }
             },
-            "component": "general.social-media"
+            "component": "general.footer"
         }
     }
 }

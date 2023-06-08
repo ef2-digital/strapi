@@ -1,0 +1,29 @@
+{
+    "collectionName": "components_layout_paragraphs",
+    "info": {
+        "displayName": "Paragraph"
+    },
+    "options": {},
+    "attributes": {
+        "heading": {
+            "type": "component",
+            "repeatable": false,
+            "component": "layout.heading",
+            "required": true
+        },
+        "text": {
+            "type": "customField",
+            "options": {
+                "preset": "standard"
+            },
+            "customField": "plugin::ckeditor.CKEditor",
+            "required": true
+        },
+        "button": {
+            "type": "component",
+            "repeatable": false,
+            "required": false,
+            "component": "input.button"
+        }
+    }
+}
