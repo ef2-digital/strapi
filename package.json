@@ -1,14 +1,14 @@
 {
-  "name": "@ef2/strapi",
-  "description": "Strapi EF2 template",
-  "version": "2.0.5",
-  "license": "MIT",
-  "devDependencies": {
-    "@strapi/strapi": "^4.4.3",
-    "@types/fs-extra": "^9.0.13",
-    "@types/mime-types": "^2.1.1",
-    "fs-extra": "^10.1.0",
-    "mime-types": "^2.1.35",
-    "path": "^0.12.7"
-  }
+    "name": "@ef2/strapi",
+    "description": "Strapi EF2 template",
+    "version": "2.1.8",
+    "license": "MIT",
+    "devDependencies": {
+        "@strapi/strapi": "^4.9.2",
+        "@types/fs-extra": "^9.0.13",
+        "@types/mime-types": "^2.1.1",
+        "fs-extra": "^10.1.0",
+        "mime-types": "^2.1.35",
+        "path": "^0.12.7"
+    }
 }

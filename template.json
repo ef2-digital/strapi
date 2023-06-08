@@ -3,17 +3,21 @@
         "dependencies": {
             "@strapi/plugin-graphql": "latest",
             "@strapi/plugin-seo": "latest",
+            "@strapi/plugin-i18n": "4.9.1",
+            "@ef2/strapi-plugin-bold-title-editor": "latest",
+            "@ef2/content-components-strapi": "0.0.23",
+            "@ef2/strapi-plugin-slug-localization": "^0.0.3",
+            "@ef2/webforms-strapi": "latest",
             "fs-extra": "^10.1.0",
             "mime-types": "^2.1.35",
             "path": "^0.12.7",
-            "strapi-plugin-navigation": "^2.2.2",
-            "strapi-plugin-slugify": "^2.3.1",
-            "strapi-plugin-config-sync": "^1.0.4",
-            "@ckeditor/strapi-plugin-ckeditor": "^0.0.7",
-            "@ef2/strapi-plugin-bold-title-editor": "latest",
-            "@ef2/content-components-strapi": "latest",
+            "mysql": "2.18.1",
+            "strapi-plugin-navigation": "latest",
+            "strapi-plugin-config-sync": "latest",
+            "@ckeditor/strapi-plugin-ckeditor": "latest",
             "strapi-plugin-placeholder": "latest",
-            "strapi-plugin-local-image-sharp": "latest"
+            "strapi-plugin-local-image-sharp": "latest",
+            "@strapi/provider-email-sendmail": "^4.9.1"
         },
         "scripts": {
             "cex": "config-sync export",
