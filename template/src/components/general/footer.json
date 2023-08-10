@@ -16,7 +16,8 @@
             "type": "component",
             "repeatable": true,
             "component": "input.links",
-            "required": false
+            "required": false,
+            "max": 2
         },
         "addresses": {
             "type": "component",

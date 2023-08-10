@@ -1,14 +1,14 @@
 {
-  "kind": "singleType",
-  "collectionName": "contact_pages",
+  "kind": "collectionType",
+  "collectionName": "article_pages",
   "info": {
-    "singularName": "contact-page",
-    "pluralName": "contact-pages",
-    "displayName": "Contact page",
+    "singularName": "article-page",
+    "pluralName": "article-pages",
+    "displayName": "Article page",
     "description": ""
   },
   "options": {
-    "draftAndPublish": false
+    "draftAndPublish": true
   },
   "pluginOptions": {
     "i18n": {
@@ -19,6 +19,16 @@
     "title": {
       "type": "string",
       "required": true
+    },
+    "slug": {
+      "required": true,
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "type": "customField",
+      "customField": "plugin::slug-localization.slug-localization"
     },
     "seo": {
       "type": "component",
@@ -67,6 +77,16 @@
         }
       },
       "component": "shared.teaser"
+    },
+    "filterTypes": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::filter-type.filter-type"
+    },
+    "filterLocations": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::filter-location.filter-location"
     }
   }
 }

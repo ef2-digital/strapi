@@ -11,12 +11,6 @@
             "customField": "plugin::bold-title-editor.title",
             "required": true
         },
-        "titleTag": {
-            "type": "enumeration",
-            "enum": ["h2", "h3", "h4", "h5", "span", "paragraph"],
-            "default": "h2",
-            "required": true
-        },
         "subtitle": {
             "type": "string",
             "required": true

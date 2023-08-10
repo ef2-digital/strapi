@@ -1,29 +1,51 @@
 {
-    "kind": "singleType",
-    "collectionName": "general_settings",
-    "info": {
-        "singularName": "general-setting",
-        "pluralName": "general-settings",
-        "displayName": "General settings"
-    },
-    "options": {
-        "draftAndPublish": false
-    },
-    "pluginOptions": {
-        "i18n": {
-            "localized": true
-        }
-    },
-    "attributes": {
-        "footer": {
-            "type": "component",
-            "repeatable": false,
-            "pluginOptions": {
-                "i18n": {
-                    "localized": true
-                }
-            },
-            "component": "general.footer"
-        }
+  "kind": "singleType",
+  "collectionName": "general_settings",
+  "info": {
+    "singularName": "general-setting",
+    "pluralName": "general-settings",
+    "displayName": "General settings",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {
+    "i18n": {
+      "localized": true
     }
+  },
+  "attributes": {
+    "footer": {
+      "type": "component",
+      "repeatable": false,
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "component": "general.footer"
+    },
+    "redirects": {
+      "type": "component",
+      "repeatable": true,
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "component": "input.redirect",
+      "required": true
+    },
+    "googleTagManager": {
+      "pluginOptions": {
+        "i18n": {
+          "localized": false
+        }
+      },
+      "type": "string",
+      "required": false,
+      "default": "GTM-"
+    }
+  }
 }

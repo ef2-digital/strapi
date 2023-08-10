@@ -1,23 +1,24 @@
 {
-    "collectionName": "components_content_accordions",
-    "info": {
-        "displayName": "Accordion",
-        "description": ""
+  "collectionName": "components_content_accordions",
+  "info": {
+    "displayName": "Accordion",
+    "description": "",
+    "icon": "eye"
+  },
+  "options": {},
+  "attributes": {
+    "heading": {
+      "type": "component",
+      "repeatable": false,
+      "component": "layout.heading",
+      "required": true
     },
-    "options": {},
-    "attributes": {
-        "heading": {
-            "type": "component",
-            "repeatable": false,
-            "component": "layout.heading",
-            "required": true
-        },
-        "items": {
-            "type": "component",
-            "repeatable": true,
-            "component": "layout.paragraph",
-            "required": true,
-            "min": 1
-        }
+    "items": {
+      "type": "component",
+      "repeatable": true,
+      "component": "content.accordion-item",
+      "min": 1,
+      "required": true
     }
+  }
 }

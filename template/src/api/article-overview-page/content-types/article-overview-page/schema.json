@@ -1,10 +1,10 @@
 {
   "kind": "singleType",
-  "collectionName": "contact_pages",
+  "collectionName": "article_overview_pages",
   "info": {
-    "singularName": "contact-page",
-    "pluralName": "contact-pages",
-    "displayName": "Contact page",
+    "singularName": "article-overview-page",
+    "pluralName": "article-overview-pages",
+    "displayName": "Article overview page",
     "description": ""
   },
   "options": {
@@ -57,16 +57,6 @@
         "content.quote"
       ],
       "required": true
-    },
-    "teaser": {
-      "type": "component",
-      "repeatable": false,
-      "pluginOptions": {
-        "i18n": {
-          "localized": true
-        }
-      },
-      "component": "shared.teaser"
     }
   }
 }

@@ -1,32 +1,31 @@
 {
-    "collectionName": "components_hero_heros",
-    "info": {
-        "displayName": "Hero",
-        "description": ""
+  "collectionName": "components_hero_heros",
+  "info": {
+    "displayName": "Hero",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "customField",
+      "customField": "plugin::bold-title-editor.title",
+      "required": true
     },
-    "options": {},
-    "attributes": {
-        "title": {
-            "type": "text",
-            "required": true
-        },
-        "image": {
-            "type": "media",
-            "multiple": false,
-            "required": true,
-            "allowedTypes": ["images"]
-        },
-        "text": {
-            "type": "customField",
-            "options": {
-                "preset": "standard"
-            },
-            "customField": "plugin::ckeditor.CKEditor",
-            "required": true
-        },
-        "textTeaser": {
-            "type": "string",
-            "required": true
-        }
+    "image": {
+      "type": "media",
+      "multiple": false,
+      "required": true,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "text": {
+      "type": "customField",
+      "options": {
+        "preset": "standard"
+      },
+      "customField": "plugin::ckeditor.CKEditor",
+      "required": true
     }
+  }
 }

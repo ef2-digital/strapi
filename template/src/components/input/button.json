@@ -14,16 +14,10 @@
             "type": "string",
             "required": true
         },
-        "color": {
+        "variant": {
             "type": "enumeration",
             "enum": ["primary", "secondary"],
             "default": "primary",
-            "required": true
-        },
-        "variant": {
-            "type": "enumeration",
-            "enum": ["default", "outline", "text"],
-            "default": "default",
             "required": true
         },
         "target": {

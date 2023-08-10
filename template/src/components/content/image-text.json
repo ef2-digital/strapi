@@ -22,6 +22,11 @@
             "type": "boolean",
             "required": true,
             "default": false
+        },
+        "textLeft": {
+            "type": "boolean",
+            "required": true,
+            "default": false
         }
     }
 }

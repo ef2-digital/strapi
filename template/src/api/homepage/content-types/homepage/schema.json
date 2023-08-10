@@ -1,52 +1,85 @@
 {
-    "kind": "singleType",
-    "collectionName": "homepages",
-    "info": {
-        "singularName": "homepage",
-        "pluralName": "homepages",
-        "displayName": "Homepage",
-        "description": ""
-    },
-    "options": {
-        "draftAndPublish": false
-    },
-    "pluginOptions": {
-        "i18n": {
-            "localized": true
-        }
-    },
-    "attributes": {
-        "title": {
-            "type": "string",
-            "required": true
-        },
-        "seo": {
-            "type": "component",
-            "repeatable": false,
-            "component": "shared.seo",
-            "required": false
-        },
-        "hero": {
-            "pluginOptions": {
-                "i18n": {
-                    "localized": true
-                }
-            },
-            "type": "dynamiczone",
-            "components": ["hero.hero-buttons"],
-            "required": true,
-            "min": 1,
-            "max": 1
-        },
-        "flexContent": {
-            "pluginOptions": {
-                "i18n": {
-                    "localized": true
-                }
-            },
-            "type": "dynamiczone",
-            "components": ["content.accordion", "content.image", "content.image-text", "content.text", "content.video"],
-            "required": true
-        }
+  "kind": "singleType",
+  "collectionName": "homepages",
+  "info": {
+    "singularName": "homepage",
+    "pluralName": "homepages",
+    "displayName": "Homepage",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {
+    "i18n": {
+      "localized": true
     }
+  },
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true
+    },
+    "seo": {
+      "type": "component",
+      "repeatable": false,
+      "component": "shared.seo",
+      "required": false
+    },
+    "hero": {
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "type": "dynamiczone",
+      "components": [
+        "hero.hero-buttons"
+      ],
+      "required": true,
+      "min": 1,
+      "max": 1
+    },
+    "flexContent": {
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "type": "dynamiczone",
+      "components": [
+        "content.accordion",
+        "content.image",
+        "content.image-text",
+        "content.text",
+        "content.video",
+        "content.quote"
+      ],
+      "required": true
+    },
+    "testtt": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::content-page.content-page"
+    },
+    "test": {
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "type": "customField",
+      "customField": "plugin::teaser.teaser"
+    },
+    "teaser": {
+      "type": "component",
+      "repeatable": false,
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "component": "shared.teaser"
+    }
+  }
 }

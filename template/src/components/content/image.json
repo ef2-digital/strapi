@@ -12,7 +12,7 @@
             "required": true,
             "allowedTypes": ["images"]
         },
-        "full": {
+        "narrow": {
             "type": "boolean",
             "required": true,
             "default": false

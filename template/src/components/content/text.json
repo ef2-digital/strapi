@@ -16,6 +16,11 @@
             "type": "boolean",
             "required": true,
             "default": false
+        },
+        "narrow": {
+            "type": "boolean",
+            "required": true,
+            "default": false
         }
     }
 }
