@@ -1,5 +1,8 @@
 export default {
     seo: { enabled: true },
+    ckeditor: {
+      enabled: true,
+    },
     placeholder: {
       enabled: true,
       config: {
