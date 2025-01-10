@@ -1,37 +1,15 @@
 import * as React from 'react';
 
 import { useQueryParams } from '@strapi/admin/strapi-admin';
-import {
-  useCollator,
-  useFilter,
-  SubNav,
-  SubNavHeader,
-  SubNavLink,
-  SubNavSection,
-  SubNavSections,
-} from '@strapi/design-system';
-import { parse, stringify } from 'qs';
+import { useCollator, useFilter, SubNav, SubNavHeader } from '@strapi/design-system';
 import { useIntl } from 'react-intl';
-import { NavLink } from 'react-router-dom';
-import { styled } from 'styled-components';
 
 import { useContentTypeSchema } from '../hooks/useContentTypeSchema';
 import { useTypedSelector } from '../modules/hooks';
 import { getTranslation } from '../utils/translations';
 
 import type { ContentManagerLink } from '../hooks/useContentManagerInitData';
-
-const SubNavLinkCustom = styled(SubNavLink)`
-  div {
-    width: inherit;
-    span:nth-child(2) {
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      width: inherit;
-    }
-  }
-`;
+import { InjectionZone } from './InjectionZone';
 
 const LeftMenu = () => {
   const [search, setSearch] = React.useState('');
@@ -145,36 +123,7 @@ const LeftMenu = () => {
           defaultMessage: 'Search for a content type',
         })}
       />
-      <SubNavSections>
-        {menu.map((section) => {
-          return (
-            <SubNavSection
-              key={section.id}
-              label={section.title}
-              badgeLabel={section.links.length.toString()}
-            >
-              {section.links.map((link) => {
-                return (
-                  <SubNavLinkCustom
-                    tag={NavLink}
-                    key={link.uid}
-                    to={{
-                      pathname: link.to,
-                      search: stringify({
-                        ...parse(link.search ?? ''),
-                        plugins: getPluginsParamsForLink(link),
-                      }),
-                    }}
-                    width="100%"
-                  >
-                    {link.title}
-                  </SubNavLinkCustom>
-                );
-              })}
-            </SubNavSection>
-          );
-        })}
-      </SubNavSections>
+      <InjectionZone area="menu.left-menu" props={{ schemas, getPluginsParamsForLink }} />
     </SubNav>
   );
 };
