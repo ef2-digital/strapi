@@ -15,9 +15,13 @@ import type { AwsCredentialIdentity } from '@aws-sdk/types';
 import { getSignedUrl } from '@aws-sdk/s3-request-presigner';
 import { Upload } from '@aws-sdk/lib-storage';
 import { extractCredentials, isUrlFromBucket } from './utils';
+import { getPlaiceholder } from 'plaiceholder';
+
+declare const strapi: any;
 
 export interface File {
   name: string;
+  placeholder?: string;
   alternativeText?: string;
   caption?: string;
   width?: number;
@@ -92,6 +96,10 @@ const getConfig = ({ baseUrl, rootPath, s3Options, ...legacyS3Options }: InitOpt
 export default {
   init({ baseUrl, rootPath, s3Options, ...legacyS3Options }: InitOptions) {
     // TODO V5 change config structure to avoid having to do this
+    strapi.plugin('upload').contentTypes.file.attributes.placeholder = {
+      type: 'text',
+    };
+
     const config = getConfig({ baseUrl, rootPath, s3Options, ...legacyS3Options });
     const s3Client = new S3Client(config);
     const filePrefix = rootPath ? `${rootPath.replace(/\/+$/, '')}/` : '';
@@ -115,13 +123,22 @@ export default {
         },
       });
 
-      const upload = (await uploadObj.done()) as UploadCommandOutput;
+      const uploadResult = (await uploadObj.done()) as UploadCommandOutput;
 
-      if (assertUrlProtocol(upload.Location)) {
-        file.url = baseUrl ? `${baseUrl}/${fileKey}` : upload.Location;
+      if (assertUrlProtocol(uploadResult.Location)) {
+        file.url = baseUrl ? `${baseUrl}/${fileKey}` : uploadResult.Location;
       } else {
-        // Default protocol to https protocol
-        file.url = `https://${upload.Location}`;
+        file.url = `https://${uploadResult.Location}`;
+      }
+
+      if (file.mime.startsWith('image')) {
+        const buffer = await fetch(file.url).then(async (res) =>
+          Buffer.from(await res.arrayBuffer())
+        );
+        const { base64 } = await getPlaiceholder(buffer);
+        if (base64) {
+          file.placeholder = base64;
+        }
       }
     };
 

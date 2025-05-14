@@ -1,6 +1,6 @@
 {
-  "name": "@strapi/provider-upload-aws-s3",
-  "version": "5.13.0",
+  "name": "@ef2/provider-upload-aws-s3",
+  "version": "5.13.0-ef2.1-ef2.1",
   "description": "AWS S3 provider for strapi upload",
   "keywords": [
     "upload",
@@ -10,17 +10,17 @@
   ],
   "homepage": "https://strapi.io",
   "bugs": {
-    "url": "https://github.com/strapi/strapi/issues"
+    "url": "https://github.com/ef2-digital/strapi/issues"
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/strapi/strapi.git"
+    "url": "https://github.com/ef2-digital/strapi"
   },
-  "license": "SEE LICENSE IN LICENSE",
+  "license": "MIT",
   "author": {
-    "name": "Strapi Solutions SAS",
-    "email": "hi@strapi.io",
-    "url": "https://strapi.io"
+    "name": "EF2 Digital",
+    "email": "info@ef2.digital",
+    "url": "https://ef2.digital"
   },
   "maintainers": [
     {
@@ -51,7 +51,8 @@
     "@aws-sdk/lib-storage": "3.433.0",
     "@aws-sdk/s3-request-presigner": "3.433.0",
     "@aws-sdk/types": "3.433.0",
-    "lodash": "4.17.21"
+    "lodash": "4.17.21",
+    "plaiceholder": "3.0.0"
   },
   "devDependencies": {
     "@types/jest": "29.5.2",
