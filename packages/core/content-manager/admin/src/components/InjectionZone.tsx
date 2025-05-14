@@ -11,6 +11,9 @@ const INJECTION_ZONES = {
     publishModalAdditionalInfos: [],
     unpublishModalAdditionalInfos: [],
   },
+  preview: {
+    actions: [],
+  },
 } satisfies InjectionZones;
 
 interface InjectionZones {
@@ -27,6 +30,9 @@ interface InjectionZones {
     publishModalAdditionalInfos: InjectionZoneComponent[];
     unpublishModalAdditionalInfos: InjectionZoneComponent[];
   };
+  preview: {
+    actions: InjectionZoneComponent[];
+  };
 }
 
 type InjectionZoneArea =
@@ -37,7 +43,8 @@ type InjectionZoneArea =
   | 'listView.unpublishModalAdditionalInfos'
   | 'listView.deleteModalAdditionalInfos'
   | 'listView.publishModalAdditionalInfos'
-  | 'listView.deleteModalAdditionalInfos';
+  | 'listView.deleteModalAdditionalInfos'
+  | 'preview.actions';
 
 type InjectionZoneModule = InjectionZoneArea extends `${infer Word}.${string}` ? Word : never;
 type InjectionZoneContainer = InjectionZoneArea extends `${string}.${infer Word}.${string}`

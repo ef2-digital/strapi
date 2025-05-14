@@ -155,8 +155,21 @@ const createHelpers = (db: Database) => {
   /**
    * Drops a foreign key from a table
    */
-  const dropForeignKey = (tableBuilder: Knex.TableBuilder, foreignKey: ForeignKey) => {
+  const dropForeignKey = (
+    tableBuilder: Knex.TableBuilder,
+    foreignKey: ForeignKey,
+    existingForeignKeys?: ForeignKey[]
+  ) => {
     const { name, columns } = foreignKey;
+
+    // Check if the index exists in existingIndexes, and return early if it doesn't
+    if (
+      existingForeignKeys &&
+      !existingForeignKeys.some((existingIndex) => existingIndex?.name === name)
+    ) {
+      debug(`Foreign Key ${name} not found in existing foreign keys. Skipping drop.`);
+      return;
+    }
 
     tableBuilder.dropForeign(columns, name);
   };
@@ -316,14 +329,14 @@ const createHelpers = (db: Database) => {
       // Drop foreign keys first to avoid foreign key errors in the following steps
       for (const removedForeignKey of table.foreignKeys.removed) {
         debug(`Dropping foreign key ${removedForeignKey.name} on ${table.name}`);
-        dropForeignKey(tableBuilder, removedForeignKey);
+        dropForeignKey(tableBuilder, removedForeignKey, existingForeignKeys);
 
         droppedForeignKeyNames.push(removedForeignKey.name);
       }
 
       for (const updatedForeignKey of table.foreignKeys.updated) {
         debug(`Dropping updated foreign key ${updatedForeignKey.name} on ${table.name}`);
-        dropForeignKey(tableBuilder, updatedForeignKey.object);
+        dropForeignKey(tableBuilder, updatedForeignKey.object, existingForeignKeys);
 
         droppedForeignKeyNames.push(updatedForeignKey.object.name);
       }
@@ -390,7 +403,7 @@ const createHelpers = (db: Database) => {
 
       for (const addedForeignKey of table.foreignKeys.added) {
         debug(`Creating foreign key ${addedForeignKey.name} on ${table.name}`);
-        createForeignKey(tableBuilder, addedForeignKey, existingForeignKeys);
+        createForeignKey(tableBuilder, addedForeignKey);
       }
 
       for (const addedIndex of table.indexes.added) {

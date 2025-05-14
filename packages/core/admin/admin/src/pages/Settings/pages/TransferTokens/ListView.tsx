@@ -2,7 +2,7 @@ import * as React from 'react';
 
 import { EmptyStateLayout, LinkButton } from '@strapi/design-system';
 import { Plus } from '@strapi/icons';
-import { Data } from '@strapi/types';
+import { EmptyDocuments } from '@strapi/icons/symbols';
 import * as qs from 'qs';
 import { useIntl } from 'react-intl';
 import { Link, useNavigate } from 'react-router-dom';
@@ -21,6 +21,8 @@ import {
 } from '../../../../services/transferTokens';
 import { TRANSFER_TOKEN_TYPE } from '../../components/Tokens/constants';
 import { Table } from '../../components/Tokens/Table';
+
+import type { Data } from '@strapi/types';
 
 const tableHeaders = [
   {
