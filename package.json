@@ -1,34 +1,35 @@
 {
-  "name": "@ef2/strapi",
+  "name": "strapi-fork",
   "version": "5.13.0",
-  "bugs": {
-    "url": "https://github.com/strapi/strapi/issues"
-  },
+  "private": true,
+  "description": "Custom fork of Strapi maintained by EF2 Digital",
   "repository": {
     "type": "git",
-    "url": "git://github.com/strapi/strapi.git"
+    "url": "https://github.com/ef2-digital/strapi"
   },
-  "license": "SEE LICENSE IN LICENSE",
+  "bugs": {
+    "url": "https://github.com/ef2-digital/strapi/issues"
+  },
+  "license": "MIT",
   "author": {
-    "name": "Strapi Solutions SAS",
-    "email": "hi@strapi.io",
-    "url": "https://strapi.io"
+    "name": "EF2 Digital",
+    "email": "info@ef2.digital",
+    "url": "https://ef2.digital"
   },
   "maintainers": [
     {
-      "name": "Strapi Solutions SAS",
-      "email": "hi@strapi.io",
-      "url": "https://strapi.io"
+      "name": "EF2 Digital",
+      "email": "info@ef2.digital",
+      "url": "https://ef2.digital"
     }
   ],
   "workspaces": [
+    "packages/core/strapi",
+    "packages/core/plugin-users-permissions",
+    "packages/providers/email-mailgun",
+    "packages/providers/upload-aws-s3",
     "packages/*",
-    "packages/*/*",
-    "examples/*",
-    "examples/plugins/*",
-    "examples/*/src/plugins/*",
-    ".github/actions/*",
-    "scripts/*"
+    "packages/*/*"
   ],
   "scripts": {
     "build": "nx run-many --targets build:code,build:types --nx-ignore-cycles",
@@ -173,10 +174,13 @@
     "yalc": "1.0.0-pre.53",
     "yargs": "17.7.2"
   },
-  "packageManager": "yarn@4.5.0",
+  "packageManager": "yarn@4.9.1",
   "engines": {
     "node": ">=18.0.0 <=22.x.x",
     "npm": ">=6.0.0"
   },
-  "isStrapiMonorepo": true
+  "isStrapiMonorepo": true,
+  "dependencies": {
+    "better-sqlite3": "11.10.0"
+  }
 }

@@ -31,12 +31,6 @@
       "outputs": ["{projectRoot}/dist"],
       "cache": true
     },
-    "build:types": {
-      "inputs": ["default", "^production"],
-      "outputs": ["{projectRoot}/dist"],
-      "dependsOn": ["^build:types"],
-      "cache": true
-    },
     "test:unit": {
       "inputs": ["default", "{workspaceRoot}/jest-preset.unit.js"],
       "cache": true

@@ -5,25 +5,25 @@
   "description": "A Strapi application.",
   "license": "SEE LICENSE IN LICENSE",
   "scripts": {
-    "build": "strapi build",
-    "build:ce": "STRAPI_DISABLE_EE=true strapi build",
-    "develop": "strapi develop",
-    "develop:ce": "STRAPI_DISABLE_EE=true strapi develop",
-    "start": "strapi start",
-    "strapi": "strapi"
+    "build": "node ../../packages/core/strapi/bin/strapi.js build",
+    "build:ce": "STRAPI_DISABLE_EE=true node ../../packages/core/strapi/bin/strapi.js build",
+    "develop": "node ../../packages/core/strapi/bin/strapi.js develop",
+    "develop:ce": "STRAPI_DISABLE_EE=true node ../../packages/core/strapi/bin/strapi.js develop",
+    "start": "node ../../packages/core/strapi/bin/strapi.js start",
+    "strapi": "node ../../packages/core/strapi/bin/strapi.js"
   },
   "dependencies": {
     "@strapi/icons": "2.0.0-rc.23",
-    "@strapi/plugin-color-picker": "workspace:*",
-    "@strapi/plugin-documentation": "workspace:*",
-    "@strapi/plugin-graphql": "workspace:*",
-    "@strapi/plugin-sentry": "workspace:*",
-    "@strapi/plugin-users-permissions": "workspace:*",
-    "@strapi/provider-email-mailgun": "workspace:*",
-    "@strapi/provider-upload-aws-s3": "workspace:*",
-    "@strapi/provider-upload-cloudinary": "workspace:*",
-    "@strapi/strapi": "workspace:*",
-    "better-sqlite3": "11.3.0",
+    "@strapi/plugin-color-picker": "link:../../packages/plugins/color-picker",
+    "@strapi/plugin-documentation": "link:../../packages/plugins/documentation",
+    "@strapi/plugin-graphql": "link:../../packages/plugins/graphql",
+    "@strapi/plugin-sentry": "link:../../packages/plugins/sentry",
+    "@strapi/plugin-users-permissions": "link:../../packages/plugins/users-permissions",
+    "@strapi/provider-email-mailgun": "link:../../packages/providers/email-mailgun",
+    "@strapi/provider-upload-aws-s3": "link:../../packages/providers/upload-aws-s3",
+    "@strapi/provider-upload-cloudinary": "link:../../packages/providers/upload-cloudinary",
+    "@strapi/strapi": "link:../../packages/core/strapi",
+    "better-sqlite3": "11.10.0",
     "lodash": "4.17.21",
     "mysql2": "3.9.8",
     "passport-google-oauth2": "0.2.0",
@@ -32,7 +32,6 @@
     "react-dom": "18.3.1",
     "react-intl": "6.6.2",
     "react-router-dom": "6.22.3",
-    "strapi-plugin-workspace-plugin": "workspace:*",
     "styled-components": "6.1.8"
   },
   "engines": {
@@ -41,5 +40,8 @@
   },
   "strapi": {
     "uuid": "getstarted"
+  },
+  "devDependencies": {
+    "create-strapi-app": "5.13.0"
   }
 }

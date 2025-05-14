@@ -26,8 +26,6 @@ Example:
 
 bash
 
-KopiërenBewerken
-
 `git checkout -b feature/my-custom-change`
 
 ---
@@ -38,8 +36,6 @@ KopiërenBewerken
 
   bash
 
-  KopiërenBewerken
-
   `git checkout main
 git fetch upstream
 git merge upstream/main
@@ -48,8 +44,6 @@ git push origin main`
 - Create an upgrade branch:
 
   bash
-
-  KopiërenBewerken
 
   `git checkout -b upgrade/strapi-x.y.z`
 
@@ -61,16 +55,12 @@ git push origin main`
 
   bash
 
-  KopiërenBewerken
-
   `yarn build --clean
 yarn develop`
 
 - Push:
 
   bash
-
-  KopiërenBewerken
 
   `git push origin upgrade/strapi-x.y.z`
 
@@ -108,8 +98,6 @@ Set up GitHub Actions to notify when Strapi releases new versions.
 
 yaml
 
-KopiërenBewerken
-
 `✅ You can copy-paste that **directly** into GitHub and it will render properly!
 
 ---
@@ -135,3 +123,90 @@ If you want a **10-second version** for the **top** of your README:
 
 ---
 ```
+
+# 🔄 Maintaining and Publishing the EF2 Strapi Fork
+
+This project uses a customized fork of Strapi to extend functionality and optimize internal workflows.
+
+---
+
+## 🛠 Preparing the Fork for Publishing
+
+Whenever updates are made to the fork (new Strapi versions, customizations, etc.), prepare the packages by running:
+
+```bash
+
+./scripts/prepare-fork.sh
+
+```
+
+This script will:
+
+Rename all @strapi package names to @ef2.
+
+Update repository, author, and license information.
+
+Append a custom version suffix (e.g., -ef2.1) to all packages.
+
+Note:
+The script automatically moves to the project root before applying changes, so you can run it from anywhere.
+
+---
+
+## 🚀 Publishing the Forked Packages
+
+After preparing the fork:
+
+Ensure you are authenticated to the private NPM registry:
+
+```bash
+
+npm login
+
+```
+
+or (in CI/CD environments) make sure your NPM_TOKEN is set.
+
+Publish the necessary packages by running:
+
+```bash
+
+./scripts/publish-all.sh
+
+```
+
+This script will publish the following packages:
+
+@ef2/strapi
+
+@ef2/plugin-users-permissions
+
+@ef2/provider-email-mailgun
+
+@ef2/provider-upload-aws-s3
+
+All packages are published privately using --access=restricted.
+
+---
+
+## 📦 Installing Forked Packages
+
+In your CMS projects, install the EF2 packages instead of the default Strapi ones:
+
+```bash
+yarn add @ef2/strapi @ef2/plugin-users-permissions @ef2/provider-email-mailgun @ef2/provider-upload-aws-s3
+```
+
+---
+
+You can continue using public Strapi plugins (like @strapi/plugin-seo) unless they are also customized.
+
+## 🧠 Important Notes
+
+Always keep the original LICENSE (MIT) file inside the fork.
+
+Always bump versions appropriately when upgrading (e.g., 5.13.0-ef2.2, 5.14.0-ef2.0).
+
+Only publish packages actually used in production/staging environments.
+
+CI/CD servers must have access to private NPM packages via authentication.
