@@ -11,57 +11,28 @@ const config = {
 };
 
 const menuItems = [
-	{
-		id: 'website',
-		title: 'Website',
-		links: [
-			{
-				uid: 'api::general-setting.general-setting',
-				title: 'Instellingen',
-				to: '/content-manager/single-types/api::general-setting.general-setting',
-			},
-			{
-				uid: 'api::menu.menu',
-				title: 'Navigatie',
-				to: '/content-manager/collection-types/api::menu.menu',
-			},
-			{
-				uid: 'api::redirect.redirect',
-				title: 'Redirects',
-				to: '/content-manager/collection-types/api::redirect.redirect',
-			},
-		],
-	},
 
 	{
 		id: 'pages',
 		title: "Pagina's",
 		links: [
-			{
-				uid: 'api::page.page',
-				title: "Pagina's",
-				to: '/content-manager/collection-types/api::page.page',
-			},
+			
 			{
 				uid: 'api::home-page.home-page',
 				title: 'Homepage',
-				to: '/content-manager/single-types/api::home-page.home-page',
+				to: '/content-manager/single-types/api::homepage.homepage',
 			},
 		],
 	},
 	{
-		id: 'news',
-		title: 'Nieuws',
+		id: 'restaurant',
+		title: 'Restaurant',
 		links: [
-			{
-				uid: 'api::overview.overview',
-				title: 'Overzichtspagina',
-				to: '/content-manager/single-types/api::overview.overview',
-			},
+			
 			{
 				uid: 'api::post.post',
-				title: 'Nieuwsberichten',
-				to: '/content-manager/collection-types/api::post.post',
+				title: 'Restaurants',
+				to: '/content-manager/collection-types/api::restaurant.restaurant',
 			},
 		],
 	},
@@ -101,13 +72,6 @@ const bootstrap = (app) => {
 					</SubNavSections>
       );
       }
-  });
-
-  app.getPlugin('content-manager').injectComponent('editView', 'right-links', {
-    name: 'PreviewButton',
-    Component: () => (
-      <Button onClick={() => window.alert('Not here, The preview is.')}>Preview</Button>
-    ),
   });
 };
 

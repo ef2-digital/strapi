@@ -144,11 +144,13 @@ const EditViewPage = () => {
       >
         {({ resetForm }) => (
           <>
-            <Header
-              isCreating={isCreatingDocument}
-              status={hasDraftAndPublished ? getDocumentStatus(document, meta) : undefined}
-              title={getTitle(mainField)}
-            />
+            <Sticky stickyStyle={{ zIndex: 99, background: 'white' }}>
+              <Header
+                isCreating={isCreatingDocument}
+                status={hasDraftAndPublished ? getDocumentStatus(document, meta) : undefined}
+                title={getTitle(mainField)}
+              />
+            </Sticky>
             <Tabs.Root variant="simple" value={status} onValueChange={handleTabChange}>
               <Tabs.List
                 aria-label={formatMessage({
@@ -177,7 +179,7 @@ const EditViewPage = () => {
                 ) : null}
               </Tabs.List>
               <Grid.Root paddingTop={8} gap={4}>
-                <Grid.Item col={10} m={9} s={12} direction="column" alignItems="stretch">
+                <Grid.Item col={12} m={12} s={12} direction="column" alignItems="stretch">
                   <Tabs.Content value="draft">
                     <FormLayout layout={layout} document={doc} />
                   </Tabs.Content>
@@ -185,11 +187,9 @@ const EditViewPage = () => {
                     <FormLayout layout={layout} document={doc} />
                   </Tabs.Content>
                 </Grid.Item>
-                <Grid.Item col={2} m={3} s={12} direction="column" alignItems="stretch">
-                  <Sticky>
-                    <Panels />
-                  </Sticky>
-                </Grid.Item>
+                {/* <Grid.Item col={12} m={12} s={12} direction="column" alignItems="stretch">
+                  <Panels />
+                </Grid.Item> */}
               </Grid.Root>
             </Tabs.Root>
             <Blocker

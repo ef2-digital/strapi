@@ -35,6 +35,7 @@ import { useDoc, useDocument } from '../../../hooks/useDocument';
 import { useDocumentActions } from '../../../hooks/useDocumentActions';
 import { useDocumentContext } from '../../../hooks/useDocumentContext';
 import { usePreviewContext } from '../../../preview/pages/Preview';
+import { PreviewAction } from '../../../preview/components/PreviewAction';
 import { CLONE_PATH, LIST_PATH } from '../../../router';
 import {
   useGetDraftRelationCountQuery,
@@ -865,7 +866,7 @@ const PublishAction: DocumentActionComponent = ({
 
   return {
     loading: isLoading,
-    position: ['panel', 'preview', 'relation-modal'],
+    position: ['header', 'preview', 'relation-modal'],
     /**
      * Disabled when:
      *  - currently if you're cloning a document we don't support publish & clone at the same time.
@@ -887,6 +888,7 @@ const PublishAction: DocumentActionComponent = ({
       id: 'app.utils.publish',
       defaultMessage: 'Publish',
     }),
+    type: 'publish',
     onClick: async () => {
       if (hasDraftRelations) {
         // In this case we need to show the user a confirmation dialog.
@@ -924,7 +926,7 @@ const PublishAction: DocumentActionComponent = ({
 };
 
 PublishAction.type = 'publish';
-PublishAction.position = ['panel', 'preview', 'relation-modal'];
+PublishAction.position = ['header', 'preview', 'relation-modal'];
 
 const UpdateAction: DocumentActionComponent = ({
   activeTab,
@@ -1209,17 +1211,18 @@ const UpdateAction: DocumentActionComponent = ({
      * - the active tab is the published tab
      */
     disabled: isSubmitting || (!modified && !isCloning) || activeTab === 'published',
+    type: 'update',
     label: formatMessage({
       id: 'global.save',
       defaultMessage: 'Save',
     }),
     onClick: handleUpdate,
-    position: ['panel', 'preview', 'relation-modal'],
+    position: ['header', 'preview', 'relation-modal'],
   };
 };
 
 UpdateAction.type = 'update';
-UpdateAction.position = ['panel', 'preview', 'relation-modal'];
+UpdateAction.position = ['header', 'preview', 'relation-modal'];
 
 const UNPUBLISH_DRAFT_OPTIONS = {
   KEEP: 'keep',
@@ -1261,6 +1264,7 @@ const UnpublishAction: DocumentActionComponent = ({
       id: 'app.utils.unpublish',
       defaultMessage: 'Unpublish',
     }),
+    type: 'unpublish',
     icon: <Cross />,
     onClick: async () => {
       /**
@@ -1365,12 +1369,12 @@ const UnpublishAction: DocumentActionComponent = ({
         }
       : undefined,
     variant: 'danger',
-    position: ['panel', 'table-row'],
+    position: ['header', 'table-row'],
   };
 };
 
 UnpublishAction.type = 'unpublish';
-UnpublishAction.position = 'panel';
+UnpublishAction.position = 'header';
 
 const DiscardAction: DocumentActionComponent = ({
   activeTab,
@@ -1432,7 +1436,13 @@ const DiscardAction: DocumentActionComponent = ({
 DiscardAction.type = 'discard';
 DiscardAction.position = 'panel';
 
-const DEFAULT_ACTIONS = [PublishAction, UpdateAction, UnpublishAction, DiscardAction];
+const DEFAULT_ACTIONS = [
+  PublishAction,
+  UpdateAction,
+  UnpublishAction,
+  DiscardAction,
+  PreviewAction,
+];
 
 export { DocumentActions, DocumentActionsMenu, DocumentActionButton, DEFAULT_ACTIONS };
 export type {

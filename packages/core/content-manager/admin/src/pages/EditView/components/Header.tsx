@@ -16,6 +16,7 @@ import {
   Typography,
   IconButton,
   Dialog,
+  Button,
 } from '@strapi/design-system';
 import { ListPlus, Pencil, Trash, WarningCircle } from '@strapi/icons';
 import { useIntl } from 'react-intl';
@@ -52,7 +53,12 @@ interface HeaderProps {
   title?: string;
 }
 
-const Header = ({ isCreating, status, title: documentTitle = 'Untitled' }: HeaderProps) => {
+const Header = ({
+  isCreating,
+  status,
+  title: documentTitle = 'Untitled',
+  children,
+}: React.PropsWithChildren<HeaderProps>) => {
   const { formatMessage } = useIntl();
   const isCloning = useMatch(CLONE_PATH) !== null;
   const params = useParams<{ collectionType: string; slug: string }>();
@@ -79,11 +85,12 @@ const Header = ({ isCreating, status, title: documentTitle = 'Untitled' }: Heade
         </Typography>
         <HeaderToolbar />
       </Flex>
-      {status ? (
+      {/* {status ? (
         <Box marginTop={1}>
           <DocumentStatus status={isCloning ? 'draft' : status} />
         </Box>
-      ) : null}
+      ) : null} */}
+      {children}
     </Flex>
   );
 };
@@ -175,9 +182,54 @@ const HeaderToolbar = () => {
             return positions.includes('header');
           });
 
+          console.log('headerActions', headerActions);
+
+          // NEW CODE: render header actions as actual buttons, not dropdown
+          return (
+            <Flex gap={2}>
+              {headerActions
+                .filter((action) => ['publish', 'update', 'preview'].includes(action.type))
+                .map((action) => (
+                  <Button
+                    key={action.label}
+                    startIcon={action.icon}
+                    onClick={action.onClick}
+                    disabled={action.disabled}
+                    loading={action.loading}
+                    variant={action.variant || 'default'}
+                    size="M"
+                  >
+                    {action.label}
+                  </Button>
+                ))}
+            </Flex>
+          );
+        }}
+      </DescriptionComponentRenderer>
+      <DescriptionComponentRenderer
+        props={{
+          activeTab: status,
+          model,
+          documentId: id,
+          document: isCloning ? undefined : document,
+          meta: isCloning ? undefined : meta,
+          collectionType,
+        }}
+        descriptions={(
+          plugins['content-manager'].apis as ContentManagerPlugin['config']['apis']
+        ).getDocumentActions('header')}
+      >
+        {(actions) => {
+          const headerActions = actions.filter((action) => {
+            const positions = Array.isArray(action.position) ? action.position : [action.position];
+            return positions.includes('header');
+          });
+
           return (
             <DocumentActionsMenu
-              actions={headerActions}
+              actions={headerActions.filter(
+                (action) => !['publish', 'update', 'preview'].includes(action.type)
+              )}
               label={formatMessage({
                 id: 'content-manager.containers.edit.header.more-actions',
                 defaultMessage: 'More actions',

@@ -126,6 +126,10 @@ const LocalePickerAction = ({
     params: { locale: currentDesiredLocale },
   });
 
+  if (!hasI18n || locales.length === 0 || locales.length === 1) {
+    return <></>;
+  }
+
   const handleSelect = React.useCallback(
     (value: string) => {
       setQuery({
@@ -286,7 +290,7 @@ const FillFromAnotherLocaleAction = ({
     onClose();
   };
 
-  if (!hasI18n) {
+  if (!hasI18n || !Array.isArray(availableLocales) || availableLocales.length === 0) {
     return null;
   }
 
