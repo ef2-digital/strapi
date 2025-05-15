@@ -8,7 +8,7 @@ import {
   useNotification,
   useQueryParams,
 } from '@strapi/admin/strapi-admin';
-import { Grid, Main, Tabs } from '@strapi/design-system';
+import { Box, Grid, Main, Tabs } from '@strapi/design-system';
 import { useIntl } from 'react-intl';
 import { useLocation, useParams } from 'react-router-dom';
 import { styled } from 'styled-components';
@@ -126,7 +126,7 @@ const EditViewPage = () => {
   };
 
   return (
-    <Main paddingLeft={10} paddingRight={10}>
+    <Main>
       <Page.Title>{getTitle(mainField)}</Page.Title>
       <Form
         disabled={hasDraftAndPublished && status === 'published'}
@@ -144,54 +144,63 @@ const EditViewPage = () => {
       >
         {({ resetForm }) => (
           <>
-            <Sticky stickyStyle={{ zIndex: 99, background: 'white' }}>
-              <Header
-                isCreating={isCreatingDocument}
-                status={hasDraftAndPublished ? getDocumentStatus(document, meta) : undefined}
-                title={getTitle(mainField)}
-              />
-            </Sticky>
-            <Tabs.Root variant="simple" value={status} onValueChange={handleTabChange}>
-              <Tabs.List
-                aria-label={formatMessage({
-                  id: getTranslation('containers.edit.tabs.label'),
-                  defaultMessage: 'Document status',
-                })}
+            <Sticky stickyStyle={{ zIndex: 99 }}>
+              <Box
+                shadow={'tableShadow'}
+                paddingLeft={10}
+                paddingRight={10}
+                style={{ background: 'white' }}
               >
-                {hasDraftAndPublished ? (
-                  <>
-                    <StatusTab value="draft">
-                      {formatMessage({
-                        id: getTranslation('containers.edit.tabs.draft'),
-                        defaultMessage: 'draft',
-                      })}
-                    </StatusTab>
-                    <StatusTab
-                      disabled={!meta || meta.availableStatus.length === 0}
-                      value="published"
-                    >
-                      {formatMessage({
-                        id: getTranslation('containers.edit.tabs.published'),
-                        defaultMessage: 'published',
-                      })}
-                    </StatusTab>
-                  </>
-                ) : null}
-              </Tabs.List>
-              <Grid.Root paddingTop={8} gap={4}>
-                <Grid.Item col={12} m={12} s={12} direction="column" alignItems="stretch">
-                  <Tabs.Content value="draft">
-                    <FormLayout layout={layout} document={doc} />
-                  </Tabs.Content>
-                  <Tabs.Content value="published">
-                    <FormLayout layout={layout} document={doc} />
-                  </Tabs.Content>
-                </Grid.Item>
-                {/* <Grid.Item col={12} m={12} s={12} direction="column" alignItems="stretch">
+                <Header
+                  isCreating={isCreatingDocument}
+                  status={hasDraftAndPublished ? getDocumentStatus(document, meta) : undefined}
+                  title={getTitle(mainField)}
+                />
+              </Box>
+            </Sticky>
+            <Box paddingLeft={10} paddingRight={10}>
+              <Tabs.Root variant="simple" value={status} onValueChange={handleTabChange}>
+                <Tabs.List
+                  aria-label={formatMessage({
+                    id: getTranslation('containers.edit.tabs.label'),
+                    defaultMessage: 'Document status',
+                  })}
+                >
+                  {hasDraftAndPublished ? (
+                    <>
+                      <StatusTab value="draft">
+                        {formatMessage({
+                          id: getTranslation('containers.edit.tabs.draft'),
+                          defaultMessage: 'draft',
+                        })}
+                      </StatusTab>
+                      <StatusTab
+                        disabled={!meta || meta.availableStatus.length === 0}
+                        value="published"
+                      >
+                        {formatMessage({
+                          id: getTranslation('containers.edit.tabs.published'),
+                          defaultMessage: 'published',
+                        })}
+                      </StatusTab>
+                    </>
+                  ) : null}
+                </Tabs.List>
+                <Grid.Root paddingTop={8} gap={4}>
+                  <Grid.Item col={12} m={12} s={12} direction="column" alignItems="stretch">
+                    <Tabs.Content value="draft">
+                      <FormLayout layout={layout} document={doc} />
+                    </Tabs.Content>
+                    <Tabs.Content value="published">
+                      <FormLayout layout={layout} document={doc} />
+                    </Tabs.Content>
+                  </Grid.Item>
+                  {/* <Grid.Item col={12} m={12} s={12} direction="column" alignItems="stretch">
                   <Panels />
                 </Grid.Item> */}
-              </Grid.Root>
-            </Tabs.Root>
+                </Grid.Root>
+              </Tabs.Root>
+            </Box>
             <Blocker
               // We reset the form to the published version to avoid errors like – https://strapi-inc.atlassian.net/browse/CONTENT-2284
               onProceed={resetForm}
