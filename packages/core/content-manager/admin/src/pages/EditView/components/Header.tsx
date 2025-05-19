@@ -17,6 +17,7 @@ import {
   IconButton,
   Dialog,
   Button,
+  Tabs,
 } from '@strapi/design-system';
 import { ListPlus, Pencil, Trash, WarningCircle } from '@strapi/icons';
 import { useIntl } from 'react-intl';
@@ -42,6 +43,7 @@ import { DocumentActionsMenu } from './DocumentActions';
 import { DocumentStatus } from './DocumentStatus';
 
 import type { ContentManagerPlugin, DocumentActionComponent } from '../../../content-manager';
+import { PreviewTitle, TitleContainer, StatusTab } from '../../../preview/components/PreviewHeader';
 
 /* -------------------------------------------------------------------------------------------------
  * Header
@@ -50,12 +52,18 @@ import type { ContentManagerPlugin, DocumentActionComponent } from '../../../con
 interface HeaderProps {
   isCreating?: boolean;
   status?: 'draft' | 'published' | 'modified';
+  docStatus?: 'draft' | 'published' | 'modified';
   title?: string;
+  hasDraftAndPublished?: boolean;
+  handleTabChange: (value: string) => void;
 }
 
 const Header = ({
   isCreating,
+  docStatus,
   status,
+  hasDraftAndPublished,
+  handleTabChange,
   title: documentTitle = 'Untitled',
   children,
 }: React.PropsWithChildren<HeaderProps>) => {
@@ -71,27 +79,83 @@ const Header = ({
     : documentTitle;
 
   return (
-    <Flex direction="column" alignItems="flex-start" paddingTop={6} paddingBottom={4} gap={2}>
-      <BackButton
-        fallback={
-          params.collectionType === SINGLE_TYPES
-            ? undefined
-            : `../${COLLECTION_TYPES}/${params.slug}`
-        }
-      />
-      <Flex width="100%" justifyContent="space-between" gap="80px" alignItems="flex-start">
-        <Typography variant="alpha" tag="h1">
+    <Flex height="48px" gap={4} background="neutral0" borderColor="neutral150" tag="header">
+      <TitleContainer height="100%" paddingLeft={2} paddingRight={4}>
+        <BackButton
+          label=""
+          fallback={
+            params.collectionType === SINGLE_TYPES
+              ? undefined
+              : `../${COLLECTION_TYPES}/${params.slug}`
+          }
+        />
+        <PreviewTitle
+          tag="h1"
+          title={title}
+          maxWidth="200px"
+          fontSize={2}
+          paddingLeft={2}
+          paddingRight={3}
+          fontWeight={600}
+        >
           {title}
-        </Typography>
-        <HeaderToolbar />
+        </PreviewTitle>
+        <DocumentStatus status={docStatus} size="XS" />
+      </TitleContainer>
+      <Flex
+        flex={1}
+        paddingRight={2}
+        gap={2}
+        justifyContent={hasDraftAndPublished ? 'space-between' : 'flex-end'}
+      >
+        <Flex flex="1 1 70%">
+          <Tabs.Root variant="simple" value={status || 'draft'} onValueChange={handleTabChange}>
+            <Tabs.List
+              aria-label={formatMessage({
+                id: 'preview.tabs.label',
+                defaultMessage: 'Document status',
+              })}
+            >
+              <StatusTab value="draft">
+                {formatMessage({
+                  id: 'content-manager.containers.List.draft',
+                  defaultMessage: 'draft',
+                })}
+              </StatusTab>
+              <StatusTab value="published" disabled={docStatus === 'draft'}>
+                {formatMessage({
+                  id: 'content-manager.containers.List.published',
+                  defaultMessage: 'published',
+                })}
+              </StatusTab>
+            </Tabs.List>
+          </Tabs.Root>
+          <HeaderToolbar />
+        </Flex>
       </Flex>
-      {/* {status ? (
-        <Box marginTop={1}>
-          <DocumentStatus status={isCloning ? 'draft' : status} />
-        </Box>
-      ) : null} */}
-      {children}
     </Flex>
+
+    // <Flex direction="column" alignItems="flex-start" paddingTop={6} paddingBottom={4} gap={2}>
+    //   <BackButton
+    //     fallback={
+    //       params.collectionType === SINGLE_TYPES
+    //         ? undefined
+    //         : `../${COLLECTION_TYPES}/${params.slug}`
+    //     }
+    //   />
+    //   <Flex width="100%" justifyContent="space-between" gap="80px" alignItems="flex-start">
+    //     <Typography variant="alpha" tag="h1">
+    //       {title}
+    //     </Typography>
+    //     <HeaderToolbar />
+    //   </Flex>
+    //   {/* {status ? (
+    //     <Box marginTop={1}>
+    //       <DocumentStatus status={isCloning ? 'draft' : status} />
+    //     </Box>
+    //   ) : null} */}
+    //   {children}
+    // </Flex>
   );
 };
 
@@ -182,13 +246,11 @@ const HeaderToolbar = () => {
             return positions.includes('header');
           });
 
-          console.log('headerActions', headerActions);
-
           // NEW CODE: render header actions as actual buttons, not dropdown
           return (
             <Flex gap={2}>
               {headerActions
-                .filter((action) => ['publish', 'update', 'preview'].includes(action.type))
+                .filter((action) => ['update', 'publish', 'preview'].includes(action.type))
                 .map((action) => (
                   <Button
                     key={action.label}
@@ -197,7 +259,8 @@ const HeaderToolbar = () => {
                     disabled={action.disabled}
                     loading={action.loading}
                     variant={action.variant || 'default'}
-                    size="M"
+                    size="S"
+                    style={{ whiteSpace: 'nowrap' }}
                   >
                     {action.label}
                   </Button>

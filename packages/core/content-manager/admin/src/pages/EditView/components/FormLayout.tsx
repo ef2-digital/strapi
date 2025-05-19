@@ -78,6 +78,7 @@ const FormLayout = ({ layout, document, hasBackground = true }: FormLayoutProps)
               hasRadius: true,
               shadow: 'tableShadow',
             })}
+            style={{ borderTop: 'none' }}
           >
             <Flex direction="column" alignItems="stretch" gap={6}>
               {panel.map((row, gridRowIndex) => (

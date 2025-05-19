@@ -274,17 +274,17 @@ const PreviewHeader = () => {
   );
 };
 
-const PreviewTitle = styled(Typography)`
+export const PreviewTitle = styled(Typography)`
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
 `;
 
-const StatusTab = styled(Tabs.Trigger)`
+export const StatusTab = styled(Tabs.Trigger)`
   text-transform: uppercase;
 `;
 
-const TitleContainer = styled(Flex)`
+export const TitleContainer = styled(Flex)`
   border-right: 1px solid ${({ theme }) => theme.colors.neutral150};
 `;
 

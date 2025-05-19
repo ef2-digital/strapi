@@ -126,7 +126,7 @@ const LocalePickerAction = ({
     params: { locale: currentDesiredLocale },
   });
 
-  if (!hasI18n || locales.length === 0 || locales.length === 1) {
+  if (!hasI18n || !locales) {
     return <></>;
   }
 
@@ -145,7 +145,7 @@ const LocalePickerAction = ({
   );
 
   React.useEffect(() => {
-    if (!Array.isArray(locales) || !hasI18n) {
+    if (!Array.isArray(locales) || !hasI18n || locales.length <= 1) {
       return;
     }
     /**
@@ -168,7 +168,7 @@ const LocalePickerAction = ({
     ...(document?.localizations ?? []),
   ];
 
-  if (!hasI18n || !Array.isArray(locales) || locales.length === 0) {
+  if (!hasI18n || !Array.isArray(locales) || locales.length <= 1) {
     return null;
   }
 
@@ -193,7 +193,6 @@ const LocalePickerAction = ({
       );
 
       const permissionsToCheck = currentLocaleDoc ? canRead : canCreate;
-
       return {
         disabled: !permissionsToCheck.includes(locale.code),
         value: locale.code,

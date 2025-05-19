@@ -209,6 +209,7 @@ const reducer = (state: HistoryState, action: HistoryActions) =>
  * -----------------------------------------------------------------------------------------------*/
 interface BackButtonProps extends Pick<LinkProps, 'disabled'> {
   fallback?: To;
+  label?: string;
 }
 
 /**
@@ -219,7 +220,7 @@ interface BackButtonProps extends Pick<LinkProps, 'disabled'> {
  * otherwise the link will be disabled.
  */
 const BackButton = React.forwardRef<HTMLAnchorElement, BackButtonProps>(
-  ({ disabled, fallback = '' }, ref) => {
+  ({ disabled, fallback = '', label = undefined }, ref) => {
     const { formatMessage } = useIntl();
     const navigate = useNavigate();
 
@@ -255,10 +256,7 @@ const BackButton = React.forwardRef<HTMLAnchorElement, BackButtonProps>(
         aria-disabled={shouldBeDisabled}
         startIcon={<ArrowLeft />}
       >
-        {formatMessage({
-          id: 'global.back',
-          defaultMessage: 'Back',
-        })}
+        {label !== undefined ? label : formatMessage({ id: 'global.back', defaultMessage: '' })}
       </Link>
     );
   }
