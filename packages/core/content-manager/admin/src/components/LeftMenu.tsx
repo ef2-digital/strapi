@@ -20,6 +20,7 @@ import { useTypedSelector } from '../modules/hooks';
 import { getTranslation } from '../utils/translations';
 
 import type { ContentManagerLink } from '../hooks/useContentManagerInitData';
+import { InjectionZone } from './InjectionZone';
 
 const SubNavLinkCustom = styled(SubNavLink)`
   div {
@@ -145,36 +146,7 @@ const LeftMenu = () => {
           defaultMessage: 'Search for a content type',
         })}
       />
-      <SubNavSections>
-        {menu.map((section) => {
-          return (
-            <SubNavSection
-              key={section.id}
-              label={section.title}
-              badgeLabel={section.links.length.toString()}
-            >
-              {section.links.map((link) => {
-                return (
-                  <SubNavLinkCustom
-                    tag={NavLink}
-                    key={link.uid}
-                    to={{
-                      pathname: link.to,
-                      search: stringify({
-                        ...parse(link.search ?? ''),
-                        plugins: getPluginsParamsForLink(link),
-                      }),
-                    }}
-                    width="100%"
-                  >
-                    {link.title}
-                  </SubNavLinkCustom>
-                );
-              })}
-            </SubNavSection>
-          );
-        })}
-      </SubNavSections>
+      <InjectionZone area="menu.left-menu" props={{ schemas, getPluginsParamsForLink }} />
     </SubNav>
   );
 };
