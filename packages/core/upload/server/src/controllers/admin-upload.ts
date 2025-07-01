@@ -30,7 +30,6 @@ export default {
     );
 
     const data = await validateUploadBody(body);
-
     const file = await uploadService.updateFileInfo(id, data.fileInfo as any, { user });
 
     ctx.body = await pm.sanitizeOutput(file, { action: ACTIONS.read });

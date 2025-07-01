@@ -102,6 +102,14 @@ export default {
         private: true,
         searchable: false,
       },
+      placeholder: {
+        type: 'string',
+        configurable: false,
+      },
+      focalPoint: {
+        type: 'json',
+        configurable: false,
+      },
     },
     // experimental feature:
     indexes: [

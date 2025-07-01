@@ -60,6 +60,7 @@
     "watch": "run -T rollup -c -w"
   },
   "dependencies": {
+    "@lemoncode/react-image-focal-point": "1.0.0",
     "@mux/mux-player-react": "3.1.0",
     "@strapi/design-system": "2.0.0-rc.27",
     "@strapi/icons": "2.0.0-rc.27",

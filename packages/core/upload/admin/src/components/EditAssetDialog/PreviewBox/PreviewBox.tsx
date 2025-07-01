@@ -29,10 +29,15 @@ import {
 
 import type { File as FileDefinition, RawFile } from '../../../../../shared/contracts/files';
 
+import { FocalActions } from './FocalActions';
+import { ImageFocalPoint, FocalPoint } from '@lemoncode/react-image-focal-point';
+import '@lemoncode/react-image-focal-point/style.css';
+
 interface Asset extends Omit<FileDefinition, 'folder'> {
   isLocal?: boolean;
   rawFile?: RawFile;
   folder?: FileDefinition['folder'] & { id: number };
+  focalPoint?: FocalPoint | null;
 }
 
 interface PreviewBoxProps {
@@ -45,6 +50,9 @@ interface PreviewBoxProps {
   onCropFinish: () => void;
   onCropStart: () => void;
   onCropCancel: () => void;
+  onFocalStart: () => void;
+  onFocalFinish: () => void;
+  onFocalCancel: () => void;
   trackedLocation?: string;
 }
 
@@ -57,6 +65,9 @@ export const PreviewBox = ({
   onCropFinish,
   onCropStart,
   onCropCancel,
+  onFocalStart,
+  onFocalFinish,
+  onFocalCancel,
   replacementFile,
   trackedLocation,
 }: PreviewBoxProps) => {
@@ -72,6 +83,11 @@ export const PreviewBox = ({
   const { crop, produceFile, stopCropping, isCropping, isCropperReady, width, height } =
     useCropImg();
   const { editAsset, error, isLoading, progress, cancel } = useEditAsset();
+
+  const [hasFocalIntent, setHasFocalIntent] = React.useState<boolean | null>(null);
+  const [focalPoint, setFocalPoint] = React.useState<FocalPoint>(asset.focalPoint || null);
+  const [isFocalImageReady, setIsFocalImageReady] = React.useState(false);
+  const [stopFocal, setStopFocal] = React.useState<() => void>(() => () => {});
 
   const {
     upload,
@@ -104,6 +120,19 @@ export const PreviewBox = ({
   }, [hasCropIntent, stopCropping, onCropCancel, onCropFinish]);
 
   React.useEffect(() => {
+    if (hasFocalIntent === false) {
+      setStopFocal();
+      onFocalCancel();
+    }
+  }, [hasFocalIntent, stopFocal, onFocalCancel, onFocalFinish]);
+
+  React.useEffect(() => {
+    if (hasFocalIntent && isFocalImageReady) {
+      onFocalStart();
+    }
+  }, [isFocalImageReady, hasFocalIntent, onFocalStart]);
+
+  React.useEffect(() => {
     if (hasCropIntent && isCropImageReady) {
       crop(previewRef.current!);
       onCropStart();
@@ -128,6 +157,7 @@ export const PreviewBox = ({
       trackUsage('didCropFile', { duplicatedFile: null, location: trackedLocation! });
     } else {
       const updatedAsset = await editAsset(nextAsset, file);
+
       optimizedCachingImage = createAssetUrl(updatedAsset, false);
       optimizedCachingThumbnailImage = createAssetUrl(updatedAsset, true);
 
@@ -139,7 +169,14 @@ export const PreviewBox = ({
     setHasCropIntent(false);
   };
 
+  const handleFocalPoint = async () => {
+    asset.focalPoint = focalPoint;
+
+    setHasFocalIntent(false);
+  };
+
   const isInCroppingMode = isCropping && !isLoading;
+  const isInFocalMode = hasFocalIntent && !isLoading;
 
   const handleDuplication = async () => {
     const nextAsset = { ...asset, width, height };
@@ -165,6 +202,16 @@ export const PreviewBox = ({
     setHasCropIntent(true);
   };
 
+  const handleFocalStart = () => {
+    setHasFocalIntent(true);
+    setIsFocalImageReady(true);
+  };
+
+  const handleFocalCancel = () => {
+    setStopFocal();
+    setHasFocalIntent(false);
+  };
+
   return (
     <>
       <CropperjsStyle />
@@ -174,6 +221,14 @@ export const PreviewBox = ({
             onValidate={handleCropping}
             onDuplicate={asset.isLocal ? undefined : handleDuplication}
             onCancel={handleCropCancel}
+          />
+        )}
+
+        {isInFocalMode && (
+          <FocalActions
+            onValidate={handleFocalPoint}
+            onDuplicate={asset.isLocal ? undefined : handleDuplication}
+            onCancel={handleFocalCancel}
           />
         )}
 
@@ -213,6 +268,25 @@ export const PreviewBox = ({
                 <Resize />
               </IconButton>
             )}
+            {canUpdate && asset.mime?.includes(AssetType.Image) && (
+              <IconButton
+                label={formatMessage({
+                  id: getTrad('control-card.focal'),
+                  defaultMessage: 'Focal point',
+                })}
+                onClick={handleFocalStart}
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  height="16px"
+                  viewBox="0 -960 960 960"
+                  width="16px"
+                  fill="currentColor"
+                >
+                  <path d="M200-120q-33 0-56.5-23.5T120-200v-160h80v160h160v80H200Zm400 0v-80h160v-160h80v160q0 33-23.5 56.5T760-120H600ZM120-600v-160q0-33 23.5-56.5T200-840h160v80H200v160h-80Zm640 0v-160H600v-80h160q33 0 56.5 23.5T840-760v160h-80ZM480-280q-83 0-141.5-58.5T280-480q0-83 58.5-141.5T480-680q83 0 141.5 58.5T680-480q0 83-58.5 141.5T480-280Zm0-80q50 0 85-35t35-85q0-50-35-85t-85-35q-50 0-85 35t-35 85q0 50 35 85t85 35Zm0-120Z" />
+                </svg>
+              </IconButton>
+            )}
           </Flex>
         </ActionRow>
 
@@ -223,7 +297,6 @@ export const PreviewBox = ({
               <UploadProgress error={error} onCancel={cancel} progress={progress} />
             </UploadProgressWrapper>
           )}
-
           {/* This one is for duplicating an asset after cropping */}
           {isLoadingUpload && (
             <UploadProgressWrapper>
@@ -235,17 +308,29 @@ export const PreviewBox = ({
             </UploadProgressWrapper>
           )}
 
-          <AssetPreview
-            ref={previewRef}
-            mime={asset.mime!}
-            name={asset.name}
-            url={hasCropIntent ? assetUrl! : thumbnailUrl!}
-            onLoad={() => {
-              if (asset.isLocal || hasCropIntent) {
-                setIsCropImageReady(true);
-              }
-            }}
-          />
+          {hasFocalIntent ? (
+            <Flex gap={2} alignItems={'center'} justifyContent="center">
+              <ImageFocalPoint
+                src={assetUrl!}
+                focalPoint={focalPoint}
+                onChange={(focalPoint: FocalPoint) => setFocalPoint(focalPoint)}
+              />
+            </Flex>
+          ) : (
+            <AssetPreview
+              ref={previewRef}
+              focalPoint={asset.focalPoint}
+              mime={asset.mime!}
+              name={asset.name}
+              url={hasCropIntent || hasFocalIntent ? assetUrl! : thumbnailUrl!}
+              onLoad={() => {
+                if (asset.isLocal || hasCropIntent) {
+                  setIsCropImageReady(true);
+                  setIsFocalImageReady(true);
+                }
+              }}
+            />
+          )}
         </Wrapper>
 
         <ActionRow

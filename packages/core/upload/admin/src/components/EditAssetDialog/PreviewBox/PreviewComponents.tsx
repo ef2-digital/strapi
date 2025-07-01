@@ -54,6 +54,14 @@ export const CroppingActionRow = styled(Flex)`
   width: 100%;
 `;
 
+export const FocalActionRow = styled(Flex)`
+  z-index: 1;
+  height: 5.2rem;
+  position: absolute;
+  background-color: rgba(33, 33, 52, 0.4);
+  width: 100%;
+`;
+
 // TODO: fix in parts, this shouldn't happen
 export const BadgeOverride = styled(Badge)`
   span {

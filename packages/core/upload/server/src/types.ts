@@ -73,4 +73,8 @@ export type FileInfo = {
   alternativeText?: string | null;
   caption?: string | null;
   folder?: number;
+  focalPoint?: {
+    x: number;
+    y: number;
+  } | null;
 };

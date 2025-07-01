@@ -50,6 +50,10 @@ export interface Asset extends Omit<FileDefinition, 'folder'> {
   isLocal?: boolean;
   rawFile?: RawFile;
   folder?: FileDefinition['folder'] & { id: number };
+  focalPoint?: {
+    x: number;
+    y: number;
+  } | null;
 }
 
 interface EditAssetContentProps {
@@ -65,6 +69,10 @@ interface FormInitialData {
   name?: string;
   alternativeText?: string;
   caption?: string;
+  focalPoint?: {
+    x?: number;
+    y?: number;
+  };
   parent?: {
     value?: number;
     label: string;
@@ -83,6 +91,7 @@ export const EditAssetContent = ({
   const { trackUsage } = useTracking();
   const submitButtonRef = React.useRef<HTMLButtonElement>(null);
   const [isCropping, setIsCropping] = React.useState(false);
+  const [isFocal, setIsFocal] = React.useState(false);
   const [replacementFile, setReplacementFile] = React.useState<File | undefined>();
   const { editAsset, isLoading } = useEditAsset();
 
@@ -91,7 +100,12 @@ export const EditAssetContent = ({
   });
 
   const handleSubmit = async (values: FormInitialData) => {
-    const nextAsset = { ...asset, ...values, folder: values.parent?.value } as Asset;
+    const nextAsset = {
+      ...asset,
+      ...values,
+      focalPoint: asset?.focalPoint,
+      folder: values.parent?.value,
+    } as Asset;
 
     if (asset?.isLocal) {
       onClose(nextAsset);
@@ -128,7 +142,20 @@ export const EditAssetContent = ({
     onClose();
   };
 
-  const formDisabled = !canUpdate || isCropping;
+  const handleStartFocal = () => {
+    setIsFocal(true);
+  };
+
+  const handleCancelFocal = () => {
+    setIsFocal(false);
+  };
+
+  const handleFinishFocal = () => {
+    setIsFocal(false);
+    onClose();
+  };
+
+  const formDisabled = !canUpdate || isCropping || isFocal;
 
   const handleConfirmClose = () => {
     // eslint-disable-next-line no-alert
@@ -149,6 +176,7 @@ export const EditAssetContent = ({
     name: asset?.name,
     alternativeText: asset?.alternativeText ?? undefined,
     caption: asset?.caption ?? undefined,
+    focalPoint: asset?.focalPoint ?? {},
     parent: {
       value: activeFolderId ?? undefined,
       label:
@@ -196,9 +224,10 @@ export const EditAssetContent = ({
       {({ values, errors, handleChange, setFieldValue }) => (
         <>
           <DialogHeader />
+
           <Modal.Body>
             <Grid.Root gap={4}>
-              <Grid.Item xs={12} col={6} direction="column" alignItems="stretch">
+              <Grid.Item xs={12} col={12} direction="column" alignItems="stretch">
                 <PreviewBox
                   asset={asset!}
                   canUpdate={canUpdate}
@@ -208,11 +237,14 @@ export const EditAssetContent = ({
                   onCropFinish={handleFinishCropping}
                   onCropStart={handleStartCropping}
                   onCropCancel={handleCancelCropping}
+                  onFocalCancel={handleCancelFocal}
+                  onFocalFinish={handleFinishFocal}
+                  onFocalStart={handleStartFocal}
                   replacementFile={replacementFile}
                   trackedLocation={trackedLocation}
                 />
               </Grid.Item>
-              <Grid.Item xs={12} col={6} direction="column" alignItems="stretch">
+              <Grid.Item xs={12} col={12} direction="column" alignItems="stretch">
                 <Form noValidate>
                   <Flex direction="column" alignItems="stretch" gap={3}>
                     <ContextInfo
@@ -256,6 +288,21 @@ export const EditAssetContent = ({
                             defaultMessage: 'Asset ID',
                           }),
                           value: asset?.id ? asset.id : null,
+                        },
+                        {
+                          label: formatMessage({
+                            id: getTrad('modal.file-details.focalPoint'),
+                            defaultMessage: 'Focal Point',
+                          }),
+                          value: asset?.focalPoint ? JSON.stringify(asset.focalPoint) : 'none',
+                        },
+
+                        {
+                          label: formatMessage({
+                            id: getTrad('modal.file-details.mime'),
+                            defaultMessage: 'MIME type',
+                          }),
+                          value: asset?.mime ? asset.mime : null,
                         },
                       ]}
                     />

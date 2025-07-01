@@ -95,6 +95,11 @@ export interface File {
   publishedAt?: string;
   updatedBy?: number;
   isLocal?: boolean;
+  focalPoint?: {
+    x: number;
+    y: number;
+  } | null;
+  placeholder?: string | null;
 }
 
 export interface RawFile extends Blob {

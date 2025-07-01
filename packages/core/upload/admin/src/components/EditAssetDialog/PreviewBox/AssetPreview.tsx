@@ -6,7 +6,7 @@ import { Box, Flex, Typography } from '@strapi/design-system';
 import { File, FilePdf } from '@strapi/icons';
 import { useIntl } from 'react-intl';
 import { styled, useTheme } from 'styled-components';
-
+import { FocalPoint } from '@lemoncode/react-image-focal-point';
 import { AssetType } from '../../../constants';
 
 const CardAsset = styled(Flex)`
@@ -24,6 +24,7 @@ interface AssetPreviewProps {
   name: string;
   url: string;
   onLoad?: () => void;
+  focalPoint?: FocalPoint;
 }
 
 export const AssetPreview = React.forwardRef<
@@ -35,8 +36,51 @@ export const AssetPreview = React.forwardRef<
   const { formatMessage } = useIntl();
 
   if (mime.includes(AssetType.Image)) {
+    if (props.focalPoint) {
+      const { x, y } = props.focalPoint;
+    }
+
     return (
-      <img ref={ref as React.ForwardedRef<HTMLImageElement>} src={url} alt={name} {...props} />
+      <Box
+        style={{
+          position: 'relative',
+          display: 'flex',
+          justifyContent: 'center',
+          background:
+            'repeating-conic-gradient(#f6f6f9 0% 25%, transparent 0% 50%) 50% / 20px 20px',
+        }}
+      >
+        <img
+          ref={ref as React.ForwardedRef<HTMLImageElement>}
+          src={url}
+          alt={name}
+          style={{
+            margin: 0,
+            padding: 0,
+            maxHeight: '26.4rem',
+            maxWidth: '100%',
+            display: 'block',
+          }}
+          // Only pass props except focalPoint to the img
+          {...Object.fromEntries(Object.entries(props).filter(([key]) => key !== 'focalPoint'))}
+        />
+        {props.focalPoint && (
+          <span
+            style={{
+              position: 'absolute',
+              left: `calc(${props.focalPoint.x}% - 10px)`,
+              top: `calc(${props.focalPoint.y}% - 10px)`,
+              width: 20,
+              height: 20,
+              borderRadius: '50%',
+              border: `2px solid ${theme.colors.primary500}`,
+              background: `${theme.colors.primary500}33`, // 20% opacity
+              pointerEvents: 'none',
+              boxSizing: 'border-box',
+            }}
+          />
+        )}
+      </Box>
     );
   }
 

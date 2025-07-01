@@ -25,6 +25,7 @@ const editAssetRequest = (
   onProgress: (progress: number) => void,
   post: FetchClient['post']
 ) => {
+  console.log('editAssetRequest', asset, file);
   const endpoint = `/${pluginId}?id=${asset.id}`;
 
   const formData = new FormData();
@@ -40,6 +41,7 @@ const editAssetRequest = (
       caption: asset.caption,
       folder: asset.folder,
       name: asset.name,
+      focalPoint: asset.focalPoint,
     })
   );
 
