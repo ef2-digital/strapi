@@ -9574,6 +9574,7 @@ __metadata:
     "@types/jest": "npm:29.5.2"
     eslint-config-custom: "npm:5.16.1"
     lodash: "npm:4.17.21"
+    plaiceholder: "npm:2.3.0"
     tsconfig: "npm:5.16.1"
   languageName: unknown
   linkType: soft
@@ -13574,6 +13575,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"blurhash@npm:1.1.4":
+  version: 1.1.4
+  resolution: "blurhash@npm:1.1.4"
+  checksum: 10c0/379c2071a702bc50023395d1b10ccda82353777b68414ce124e94eea5775e64c1e8b17e867201b817c3a0e29f74f255247867dfcda0116fb1d49afd914c6480f
+  languageName: node
+  linkType: hard
+
 "bn.js@npm:^4.0.0, bn.js@npm:^4.11.9":
   version: 4.12.0
   resolution: "bn.js@npm:4.12.0"
@@ -14446,6 +14454,13 @@ __metadata:
   dependencies:
     mimic-response: "npm:^1.0.0"
   checksum: 10c0/06a2b611824efb128810708baee3bd169ec9a1bf5976a5258cd7eb3f7db25f00166c6eee5961f075c7e38e194f373d4fdf86b8166ad5b9c7e82bbd2e333a6087
+  languageName: node
+  linkType: hard
+
+"clone@npm:2.x":
+  version: 2.1.2
+  resolution: "clone@npm:2.1.2"
+  checksum: 10c0/ed0601cd0b1606bc7d82ee7175b97e68d1dd9b91fd1250a3617b38d34a095f8ee0431d40a1a611122dcccb4f93295b4fdb94942aa763392b5fe44effa50c2d5e
   languageName: node
   linkType: hard
 
@@ -20007,6 +20022,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"image-size@npm:1.0.0":
+  version: 1.0.0
+  resolution: "image-size@npm:1.0.0"
+  dependencies:
+    queue: "npm:6.0.2"
+  bin:
+    image-size: bin/image-size.js
+  checksum: 10c0/71b531ced2abef11e2a5ba77a533b9229aa10585d252154b039458265978172f890e82a210f5f4467bc7d8a5fe0a501251984a1a9caa66a1f65a6e8dcb136289
+  languageName: node
+  linkType: hard
+
 "immediate@npm:~3.0.5":
   version: 3.0.6
   resolution: "immediate@npm:3.0.6"
@@ -24244,6 +24270,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"node-cache@npm:5.1.2":
+  version: 5.1.2
+  resolution: "node-cache@npm:5.1.2"
+  dependencies:
+    clone: "npm:2.x"
+  checksum: 10c0/2f91907510a1276415ae5898269d0765934d5a4f3682c8b1b19964694a9b841c8bd791e1a125d1f89050f412e1da5dd982179d714252b3a7223abb05b8cb24d5
+  languageName: node
+  linkType: hard
+
 "node-fetch@npm:2.6.7":
   version: 2.6.7
   resolution: "node-fetch@npm:2.6.7"
@@ -26104,6 +26139,20 @@ __metadata:
   languageName: node
   linkType: hard
 
+"plaiceholder@npm:2.3.0":
+  version: 2.3.0
+  resolution: "plaiceholder@npm:2.3.0"
+  dependencies:
+    blurhash: "npm:1.1.4"
+    image-size: "npm:1.0.0"
+    node-cache: "npm:5.1.2"
+    node-fetch: "npm:2.6.7"
+  peerDependencies:
+    sharp: ">= 0.26.2"
+  checksum: 10c0/18d72595d2be9a90891a3d0ba05d0ac3b42d5ad8cc0d41338ab24dc25b4c799fd9945a662012877a2b13a723d5afedf8e3bd23648fe9a0b0615acddd76c174d9
+  languageName: node
+  linkType: hard
+
 "player.style@npm:^0.0.8":
   version: 0.0.8
   resolution: "player.style@npm:0.0.8"
@@ -26693,6 +26742,15 @@ __metadata:
   version: 1.2.3
   resolution: "queue-microtask@npm:1.2.3"
   checksum: 10c0/900a93d3cdae3acd7d16f642c29a642aea32c2026446151f0778c62ac089d4b8e6c986811076e1ae180a694cedf077d453a11b58ff0a865629a4f82ab558e102
+  languageName: node
+  linkType: hard
+
+"queue@npm:6.0.2":
+  version: 6.0.2
+  resolution: "queue@npm:6.0.2"
+  dependencies:
+    inherits: "npm:~2.0.3"
+  checksum: 10c0/cf987476cc72e7d3aaabe23ccefaab1cd757a2b5e0c8d80b67c9575a6b5e1198807ffd4f0948a3f118b149d1111d810ee773473530b77a5c606673cac2c9c996
   languageName: node
   linkType: hard
 

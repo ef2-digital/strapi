@@ -51,7 +51,8 @@
     "@aws-sdk/lib-storage": "3.433.0",
     "@aws-sdk/s3-request-presigner": "3.433.0",
     "@aws-sdk/types": "3.433.0",
-    "lodash": "4.17.21"
+    "lodash": "4.17.21",
+    "plaiceholder": "2.3.0"
   },
   "devDependencies": {
     "@types/jest": "29.5.2",

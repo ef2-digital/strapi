@@ -1,91 +1,18 @@
 import * as React from 'react';
-
 import { useQueryParams, SubNav } from '@strapi/admin/strapi-admin';
-import { Divider, Flex, TextInput, useCollator, useFilter } from '@strapi/design-system';
-import { Cross, Search } from '@strapi/icons';
-import { parse, stringify } from 'qs';
+import { Divider } from '@strapi/design-system';
 import { useIntl } from 'react-intl';
 
 import { useContentTypeSchema } from '../hooks/useContentTypeSchema';
-import { useTypedSelector } from '../modules/hooks';
 import { getTranslation } from '../utils/translations';
 
 import type { ContentManagerLink } from '../hooks/useContentManagerInitData';
 import { InjectionZone } from './InjectionZone';
 
 const LeftMenu = () => {
-  const [search, setSearch] = React.useState('');
   const [{ query }] = useQueryParams<{ plugins?: object }>();
-  const { formatMessage, locale } = useIntl();
-
-  const collectionTypeLinks = useTypedSelector(
-    (state) => state['content-manager'].app.collectionTypeLinks
-  );
-
-  const singleTypeLinks = useTypedSelector((state) => state['content-manager'].app.singleTypeLinks);
+  const { formatMessage } = useIntl();
   const { schemas } = useContentTypeSchema();
-
-  const { startsWith } = useFilter(locale, {
-    sensitivity: 'base',
-  });
-
-  const formatter = useCollator(locale, {
-    sensitivity: 'base',
-  });
-
-  const menu = React.useMemo(
-    () =>
-      [
-        {
-          id: 'collectionTypes',
-          title: formatMessage({
-            id: getTranslation('components.LeftMenu.collection-types'),
-            defaultMessage: 'Collection Types',
-          }),
-          searchable: true,
-          links: collectionTypeLinks,
-        },
-        {
-          id: 'singleTypes',
-          title: formatMessage({
-            id: getTranslation('components.LeftMenu.single-types'),
-            defaultMessage: 'Single Types',
-          }),
-          searchable: true,
-          links: singleTypeLinks,
-        },
-      ].map((section) => ({
-        ...section,
-        links: section.links
-          /**
-           * Filter by the search value
-           */
-          .filter((link) => startsWith(link.title, search))
-          /**
-           * Sort correctly using the language
-           */
-          .sort((a, b) => formatter.compare(a.title, b.title))
-          /**
-           * Apply the formated strings to the links from react-intl
-           */
-          .map((link) => {
-            return {
-              ...link,
-              title: formatMessage({ id: link.title, defaultMessage: link.title }),
-            };
-          }),
-      })),
-    [collectionTypeLinks, search, singleTypeLinks, startsWith, formatMessage, formatter]
-  );
-
-  const handleClear = () => {
-    setSearch('');
-  };
-
-  const handleChangeSearch = ({ target: { value } }: { target: { value: string } }) => {
-    setSearch(value);
-  };
-
   const label = formatMessage({
     id: getTranslation('header.name'),
     defaultMessage: 'Content Manager',
@@ -113,11 +40,11 @@ const LeftMenu = () => {
   };
 
   return (
-     <SubNav.Main aria-label={label}>
+    <SubNav.Main aria-label={label}>
       <SubNav.Header label={label} />
-      <Divider background="neutral150" />
+      <Divider background="neutral150" marginBottom={4} />
       <InjectionZone area="menu.left-menu" props={{ schemas, getPluginsParamsForLink }} />
-    </SubNav>
+    </SubNav.Main>
   );
 };
 
