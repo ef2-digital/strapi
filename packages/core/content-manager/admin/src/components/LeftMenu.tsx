@@ -11,6 +11,7 @@ import { useTypedSelector } from '../modules/hooks';
 import { getTranslation } from '../utils/translations';
 
 import type { ContentManagerLink } from '../hooks/useContentManagerInitData';
+import { InjectionZone } from './InjectionZone';
 
 const LeftMenu = () => {
   const [search, setSearch] = React.useState('');
@@ -112,47 +113,11 @@ const LeftMenu = () => {
   };
 
   return (
-    <SubNav.Main aria-label={label}>
+     <SubNav.Main aria-label={label}>
       <SubNav.Header label={label} />
       <Divider background="neutral150" />
-      <Flex padding={5} gap={3} direction={'column'} alignItems={'stretch'}>
-        <TextInput
-          startAction={<Search fill="neutral500" />}
-          value={search}
-          onChange={handleChangeSearch}
-          aria-label="Search"
-          placeholder={formatMessage({
-            id: 'content-manager.components.LeftMenu.Search.label',
-            defaultMessage: 'Search for a content type',
-          })}
-          endAction={<Cross onClick={handleClear} fill="neutral500" cursor="pointer" />}
-          size="S"
-        />
-      </Flex>
-      <SubNav.Sections>
-        {menu.map((section) => {
-          return (
-            <SubNav.Section key={section.id} label={section.title}>
-              {section.links.map((link) => {
-                return (
-                  <SubNav.Link
-                    key={link.uid}
-                    to={{
-                      pathname: link.to,
-                      search: stringify({
-                        ...parse(link.search ?? ''),
-                        plugins: getPluginsParamsForLink(link),
-                      }),
-                    }}
-                    label={link.title}
-                  />
-                );
-              })}
-            </SubNav.Section>
-          );
-        })}
-      </SubNav.Sections>
-    </SubNav.Main>
+      <InjectionZone area="menu.left-menu" props={{ schemas, getPluginsParamsForLink }} />
+    </SubNav>
   );
 };
 

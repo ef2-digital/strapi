@@ -153,7 +153,6 @@ const HomePageCE = () => {
       <FreeTrialEndedModal />
       <Layouts.Content>
         <Flex direction="column" alignItems="stretch" gap={8} paddingBottom={10}>
-          <GuidedTour />
           <Grid.Root gap={5}>
             {getAllWidgets().map((widget) => {
               return (
