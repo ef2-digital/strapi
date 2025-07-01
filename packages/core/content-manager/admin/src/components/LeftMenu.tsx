@@ -1,19 +1,10 @@
 import * as React from 'react';
 
-import { useQueryParams } from '@strapi/admin/strapi-admin';
-import {
-  useCollator,
-  useFilter,
-  SubNav,
-  SubNavHeader,
-  SubNavLink,
-  SubNavSection,
-  SubNavSections,
-} from '@strapi/design-system';
+import { useQueryParams, SubNav } from '@strapi/admin/strapi-admin';
+import { Divider, Flex, TextInput, useCollator, useFilter } from '@strapi/design-system';
+import { Cross, Search } from '@strapi/icons';
 import { parse, stringify } from 'qs';
 import { useIntl } from 'react-intl';
-import { NavLink } from 'react-router-dom';
-import { styled } from 'styled-components';
 
 import { useContentTypeSchema } from '../hooks/useContentTypeSchema';
 import { useTypedSelector } from '../modules/hooks';
@@ -21,18 +12,6 @@ import { getTranslation } from '../utils/translations';
 
 import type { ContentManagerLink } from '../hooks/useContentManagerInitData';
 import { InjectionZone } from './InjectionZone';
-
-const SubNavLinkCustom = styled(SubNavLink)`
-  div {
-    width: inherit;
-    span:nth-child(2) {
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      width: inherit;
-    }
-  }
-`;
 
 const LeftMenu = () => {
   const [search, setSearch] = React.useState('');
@@ -134,18 +113,9 @@ const LeftMenu = () => {
   };
 
   return (
-    <SubNav aria-label={label}>
-      <SubNavHeader
-        label={label}
-        searchable
-        value={search}
-        onChange={handleChangeSearch}
-        onClear={handleClear}
-        searchLabel={formatMessage({
-          id: 'content-manager.components.LeftMenu.Search.label',
-          defaultMessage: 'Search for a content type',
-        })}
-      />
+     <SubNav.Main aria-label={label}>
+      <SubNav.Header label={label} />
+      <Divider background="neutral150" />
       <InjectionZone area="menu.left-menu" props={{ schemas, getPluginsParamsForLink }} />
     </SubNav>
   );
