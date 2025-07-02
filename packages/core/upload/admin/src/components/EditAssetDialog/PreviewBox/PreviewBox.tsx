@@ -30,6 +30,8 @@ import {
 import type { File as FileDefinition, RawFile } from '../../../../../shared/contracts/files';
 
 import { FocalActions } from './FocalActions';
+
+// @ts-ignore
 import { ImageFocalPoint, FocalPoint } from '@lemoncode/react-image-focal-point';
 import '@lemoncode/react-image-focal-point/style.css';
 
@@ -87,7 +89,7 @@ export const PreviewBox = ({
   const [hasFocalIntent, setHasFocalIntent] = React.useState<boolean | null>(null);
   const [focalPoint, setFocalPoint] = React.useState<FocalPoint>(asset.focalPoint || null);
   const [isFocalImageReady, setIsFocalImageReady] = React.useState(false);
-  const [stopFocal, setStopFocal] = React.useState<() => void>(() => () => {});
+  const [stopFocal, setStopFocal] = React.useState(true);
 
   const {
     upload,
@@ -121,7 +123,7 @@ export const PreviewBox = ({
 
   React.useEffect(() => {
     if (hasFocalIntent === false) {
-      setStopFocal();
+      setStopFocal(true);
       onFocalCancel();
     }
   }, [hasFocalIntent, stopFocal, onFocalCancel, onFocalFinish]);
@@ -208,7 +210,7 @@ export const PreviewBox = ({
   };
 
   const handleFocalCancel = () => {
-    setStopFocal();
+    setStopFocal(true);
     setHasFocalIntent(false);
   };
 

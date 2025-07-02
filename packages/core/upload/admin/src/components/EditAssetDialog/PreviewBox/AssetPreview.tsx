@@ -6,6 +6,7 @@ import { Box, Flex, Typography } from '@strapi/design-system';
 import { File, FilePdf } from '@strapi/icons';
 import { useIntl } from 'react-intl';
 import { styled, useTheme } from 'styled-components';
+// @ts-ignore
 import { FocalPoint } from '@lemoncode/react-image-focal-point';
 import { AssetType } from '../../../constants';
 
