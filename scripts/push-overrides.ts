@@ -20,6 +20,7 @@ const DIST_SOURCES: Record<string, { source: string; target: string }> = {
     target: 'plugin-users-permissions',
   },
   'plugin-media-library': { source: 'packages/core/media-library/dist', target: 'media-library' },
+  upload: { source: 'packages/core/upload/dist', target: 'upload' },
 };
 
 (async () => {
@@ -48,6 +49,10 @@ const DIST_SOURCES: Record<string, { source: string; target: string }> = {
   await repo.checkout('main');
   await repo.pull('origin', 'main');
 
+  // Create a unique feature branch name
+  const branchName = `feat/overrides-${folders.join('-')}-${Date.now()}`;
+  await repo.checkoutLocalBranch(branchName);
+
   for (const folder of folders) {
     const { source, target } = DIST_SOURCES[folder];
     const src = path.resolve(source);
@@ -60,7 +65,7 @@ const DIST_SOURCES: Record<string, { source: string; target: string }> = {
 
   await repo.add('.');
   await repo.commit(`feat: overrides for ${folders.join(', ')}`);
-  await repo.push('origin', 'main');
+  await repo.push('origin', branchName);
 
-  console.log('✅ Done.');
+  console.log(`✅ Done. Pushed to branch: ${branchName}`);
 })();
