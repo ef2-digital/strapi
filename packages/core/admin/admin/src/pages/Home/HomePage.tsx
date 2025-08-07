@@ -11,11 +11,6 @@ import { Widget } from '../../components/WidgetHelpers';
 import { useEnterprise } from '../../ee';
 import { useAuth } from '../../features/Auth';
 import { useStrapiApp } from '../../features/StrapiApp';
-
-import { FreeTrialEndedModal } from './components/FreeTrialEndedModal';
-import { FreeTrialWelcomeModal } from './components/FreeTrialWelcomeModal';
-import { GuidedTour } from './components/GuidedTour';
-
 import type { WidgetType } from '@strapi/admin/strapi-admin';
 
 /* -------------------------------------------------------------------------------------------------
@@ -82,6 +77,7 @@ export const WidgetRoot = ({
             variant="omega"
             textColor="primary600"
             style={{ textDecoration: 'none' }}
+            textAlign="right"
             to={link.href}
           >
             {formatMessage(link.label)}
@@ -149,8 +145,6 @@ const HomePageCE = () => {
           defaultMessage: 'Welcome to your administration panel',
         })}
       />
-      <FreeTrialWelcomeModal />
-      <FreeTrialEndedModal />
       <Layouts.Content>
         <Flex direction="column" alignItems="stretch" gap={8} paddingBottom={10}>
           <Grid.Root gap={5}>
