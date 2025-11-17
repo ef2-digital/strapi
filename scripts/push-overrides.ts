@@ -4,7 +4,7 @@ import prompts from 'prompts';
 import simpleGit from 'simple-git';
 import fs from 'fs-extra';
 import path from 'path';
-import open from 'open';
+import pkg from '../packages/core/strapi/package.json';
 
 const OVERRIDES_REPO = 'git@github.com:ef2-digital/strapi-admin-overrides.git';
 const TEMP_DIR = '.tmp/strapi-admin-overrides';
@@ -36,6 +36,8 @@ const DIST_SOURCES: Record<string, { source: string; target: string }> = {
     process.exit(1);
   }
 
+  const strapiVersion = pkg.version || 'unknown-version';
+
   console.log('📁 Cleaning previous temp clone');
   await fs.remove(TEMP_DIR);
 
@@ -50,7 +52,7 @@ const DIST_SOURCES: Record<string, { source: string; target: string }> = {
   await repo.pull('origin', 'main');
 
   // Create a unique feature branch name
-  const branchName = `feat/overrides-${folders.join('-')}-${Date.now()}`;
+  const branchName = `feat/overrides-strapi-${strapiVersion}`;
   await repo.checkoutLocalBranch(branchName);
 
   for (const folder of folders) {
